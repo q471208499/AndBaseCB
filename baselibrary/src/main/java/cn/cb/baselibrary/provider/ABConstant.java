@@ -1,4 +1,4 @@
-package cn.cb.andbase.provider;
+package cn.cb.baselibrary.provider;
 
 public class ABConstant {
     public static final int REQUEST_CODE_SCAN = 1000;

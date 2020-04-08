@@ -1,4 +1,4 @@
-package cn.cb.andbase;
+package cn.cb.baselibrary;
 
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
@@ -30,7 +30,7 @@ public class BaseApplication extends Application {
         PACKAGE_NAME = getPackageNameApp();
         //APP_BITMAP = getBitmap();
         setDatabasePath(DB_NAME);
-        MyToast.init(this, BuildConfig.DEBUG, true);
+        MyToast.init(this, true, true);
     }
 
     /**

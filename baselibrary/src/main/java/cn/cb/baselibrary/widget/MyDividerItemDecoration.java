@@ -1,4 +1,4 @@
-package cn.cb.andbase.widget;
+package cn.cb.baselibrary.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

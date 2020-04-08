@@ -1,4 +1,4 @@
-package cn.cb.andbase.activity;
+package cn.cb.baselibrary.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -29,7 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 
-import cn.cb.andbase.R;
+import cn.cb.baselibrary.R;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import es.dmoral.toasty.MyToast;
 
@@ -49,7 +49,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void hideInput() {
-        InputMethodManager manager = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager manager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
@@ -89,6 +89,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 暴力调用，使menu加载图标
+     *
      * @param featureId
      * @param menu
      * @return
@@ -162,12 +163,12 @@ public class BaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    protected void restartAPP(){
+    protected void restartAPP() {
         launchToAPP(getPackageName());
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
-    protected void launchToAPP(String packageName){
+    protected void launchToAPP(String packageName) {
         PackageManager packageManager = getPackageManager();
         if (checkPackInfo(packageName)) {
             Intent intent = packageManager.getLaunchIntentForPackage(packageName);

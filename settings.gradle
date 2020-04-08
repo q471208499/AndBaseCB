@@ -1,2 +1,3 @@
 rootProject.name='AndBaseCB'
 include ':app'
+include ':baselibrary'

@@ -1,9 +1,9 @@
-package cn.cb.andbase.activity;
+package cn.cb.andbase;
 
 import android.os.Bundle;
 
-import cn.cb.andbase.R;
-import cn.cb.andbase.activity.BaseActivity;
+import cn.cb.baselibrary.activity.BaseActivity;
+
 
 public class MainActivity extends BaseActivity {
 
@@ -11,5 +11,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initBarView();
     }
 }
