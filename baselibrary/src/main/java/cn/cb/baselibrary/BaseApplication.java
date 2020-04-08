@@ -1,6 +1,7 @@
 package cn.cb.baselibrary;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -21,6 +22,12 @@ public class BaseApplication extends Application {
     public static File DATABASE_PATH;
     public static String DB_NAME = "app-db";
 
+    private static Context mContext;
+
+    public static Context getContext() {
+        return mContext;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,6 +38,7 @@ public class BaseApplication extends Application {
         //APP_BITMAP = getBitmap();
         setDatabasePath(DB_NAME);
         MyToast.init(this, true, true);
+        mContext = getApplicationContext();
     }
 
     /**
