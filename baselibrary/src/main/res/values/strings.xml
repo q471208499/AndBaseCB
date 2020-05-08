@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="lib_load_more_text">正在加载...</string>
+    <string name="toast_intent_cls">intent class is null !</string>
 </resources>

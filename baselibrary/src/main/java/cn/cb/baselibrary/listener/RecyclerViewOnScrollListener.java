@@ -55,19 +55,19 @@ public class RecyclerViewOnScrollListener extends RecyclerView.OnScrollListener 
         } else {
             mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
         }
-        System.out.println("##mPullLoadMoreRecyclerView.getPushRefreshEnable()" + mPullLoadMoreRecyclerView.getPushRefreshEnable());
+        /*System.out.println("##mPullLoadMoreRecyclerView.getPushRefreshEnable()" + mPullLoadMoreRecyclerView.getPushRefreshEnable());
         System.out.println("##!mPullLoadMoreRecyclerView.isRefresh()" + !mPullLoadMoreRecyclerView.isRefresh());
         System.out.println("##mPullLoadMoreRecyclerView.isHasMore()" + mPullLoadMoreRecyclerView.isHasMore());
         System.out.println("##(lastItem == totalItemCount - 1)" + (lastItem == totalItemCount - 1));
         System.out.println("##!mPullLoadMoreRecyclerView.isLoadMore()" + !mPullLoadMoreRecyclerView.isLoadMore());
-        System.out.println("##(dx > 0 || dy > 0)" + (dx > 0 || dy > 0));
+        System.out.println("##(dx > 0 || dy > 0)" + (dx > 0 || dy > 0));*/
         if (mPullLoadMoreRecyclerView.getPushRefreshEnable()//能否刷新
                 && !mPullLoadMoreRecyclerView.isRefresh()//正在下拉刷新
                 && mPullLoadMoreRecyclerView.isHasMore()//是否有更多内容
                 && (lastItem == totalItemCount - 1)//最后一条
                 && !mPullLoadMoreRecyclerView.isLoadMore()//正在上拉加载
                 && (dx > 0 || dy > 0)) {
-            System.out.println("##loadMore");
+            //System.out.println("##loadMore");
             mPullLoadMoreRecyclerView.setIsLoadMore(true);
             mPullLoadMoreRecyclerView.loadMore();
         }
