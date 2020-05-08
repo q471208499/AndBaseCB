@@ -3,9 +3,9 @@ package cn.cb.andbase;
 
 import android.os.Bundle;
 
-import cn.cb.baselibrary.activity.SplashActivity;
+import cn.cb.baselibrary.activity.SplashBaseActivity;
 
-public class SplashTestActivity extends SplashActivity {
+public class SplashTestBaseActivity extends SplashBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

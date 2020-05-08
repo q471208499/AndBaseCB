@@ -14,7 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import cn.cb.baselibrary.R;
 import es.dmoral.toasty.MyToast;
 
-public class SplashActivity extends BaseActivity {
+public class SplashBaseActivity extends BaseActivity {
     private final String TAG = "SplashActivity";
 
     protected ImageView mContentView;
@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity {
                 Log.e(TAG, "intent class is null, please init \"cls\".");
                 return;
             }
-            Intent intent = new Intent(SplashActivity.this, cls);
+            Intent intent = new Intent(SplashBaseActivity.this, cls);
             //intent.putExtra(Intent.EXTRA_TITLE, "首次启动信息录入");
             startActivity(intent);
             finish();
