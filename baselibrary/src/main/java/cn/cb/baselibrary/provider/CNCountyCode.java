@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * http://www.mca.gov.cn/article/sj/xzqh/2020/
@@ -29,11 +30,26 @@ public class CNCountyCode {
         initData();
     }
 
-    public Map<String, Object> getCode() {
+    public Map<String, Object> getCodeMap() {
         return map;
     }
 
-    public void initData() {
+    public String getCode(String name) {
+        for (Map.Entry entry : map.entrySet()) {
+            String key = entry.getKey().toString();
+            String value = entry.getValue().toString();
+            if (value.equals(name)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    public String getName(String code) {
+        return Objects.requireNonNull(map.get(code)).toString();
+    }
+
+    private void initData() {
         map = new HashMap<>();
         map.put("110000", "北京市");
         map.put("110101", "东城区");
@@ -3255,15 +3271,13 @@ public class CNCountyCode {
         if (file.exists()) {
             try (FileReader reader = new FileReader(file);
                  BufferedReader bufferedReader = new BufferedReader(reader)) {
-                String str = null;
-                StringBuffer sb = null;
+                String str;
+                StringBuffer sb;
                 while ((str = bufferedReader.readLine()) != null) {
                     sb = new StringBuffer();
                     String[] s = str.split("\t");
                     for (String ss : s) {
-                        if (ss == null || ss.isEmpty()) {
-
-                        } else {
+                        if (ss != null && !ss.isEmpty()) {
                             // map.put("110000", "北京市");
                             if (sb.toString().isEmpty()) {
                                 sb.append("map.put(\"").append(ss);
