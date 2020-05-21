@@ -17,6 +17,7 @@ import cn.cb.baselibrary.BaseApplication;
 import okhttp3.Cache;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,6 +49,7 @@ public class CommonOkHttpClient {
         //创建我们Client对象的构建者
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         okHttpBuilder
+                .connectionPool(new ConnectionPool())//连接池 5个连接/5分钟
                 //为构建者设置超时时间
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.SECONDS)
