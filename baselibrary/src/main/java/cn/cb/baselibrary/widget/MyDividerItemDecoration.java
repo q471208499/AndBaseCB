@@ -1,225 +1,346 @@
 package cn.cb.baselibrary.widget;
 
-import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
-    public static final int HORIZONTAL = LinearLayout.HORIZONTAL;
-    public static final int VERTICAL = LinearLayout.VERTICAL;
+    //横向布局分割线
+    public static final int HORIZONTAL_DIV = RecyclerView.HORIZONTAL;
+    //纵向布局分割线
+    public static final int VERTICAL_DIV = RecyclerView.VERTICAL;
+    //表格布局分割线
+    public static final int GRID_DIV = 2;
+    private int mOrientation;
+    private int mDividerWidth = 0;
+    private Paint mPaint;
 
-    private static final String TAG = "DividerItem";
-    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-
-    private Drawable mDivider;
-
-    /**
-     * Current orientation. Either {@link #HORIZONTAL} or {@link #VERTICAL}.
-     */
-    private int mOrientation = -1;
-
-    private final Rect mBounds = new Rect();
+    private boolean isDrawOuterBorder = false;//默认不绘制边框
 
     /**
-     * Creates a divider {@link RecyclerView.ItemDecoration} that can be used with a
-     * {@link LinearLayoutManager}.
-     *
-     * @param context     Current context, it will be used to access resources.
-     * @param orientation Divider orientation. Should be {@link #HORIZONTAL} or {@link #VERTICAL}.
+     * 默认纵向布分割线
      */
-    public MyDividerItemDecoration(Context context, int orientation) {
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
-        if (mDivider == null) {
-            Log.w(TAG, "@android:attr/listDivider was not set in the theme used for this "
-                    + "DividerItemDecoration. Please set that attribute all call setDrawable()");
-        }
-        a.recycle();
-        setOrientation(orientation);
-    }
-
-    public MyDividerItemDecoration(Context context) {
-        final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
-        if (mDivider == null) {
-            Log.w(TAG, "@android:attr/listDivider was not set in the theme used for this "
-                    + "DividerItemDecoration. Please set that attribute all call setDrawable()");
-        }
-        a.recycle();
+    public MyDividerItemDecoration() {
+        this(VERTICAL_DIV);
     }
 
     /**
-     * Sets the orientation for this divider. This should be called if
-     * {@link RecyclerView.LayoutManager} changes orientation.
-     *
-     * @param orientation {@link #HORIZONTAL} or {@link #VERTICAL}
+     * @param orientation 方向类型
      */
-    public void setOrientation(int orientation) {
-        if (orientation != HORIZONTAL && orientation != VERTICAL) {
-            throw new IllegalArgumentException(
-                    "Invalid orientation. It should be either HORIZONTAL or VERTICAL");
-        }
-        mOrientation = orientation;
+    public MyDividerItemDecoration(int orientation) {
+        this(orientation, Color.parseColor("#EEEEEE"), 2);
     }
 
     /**
-     * Sets the {@link Drawable} for this divider.
-     *
-     * @param drawable Drawable that should be used as a divider.
+     * @param orientation 方向类型
+     * @param color       分割线颜色
+     * @param divWidth    分割线宽度
      */
-    public void setDrawable(@NonNull Drawable drawable) {
-        if (drawable == null) {
-            throw new IllegalArgumentException("Drawable cannot be null.");
-        }
-        mDivider = drawable;
+    public MyDividerItemDecoration(int orientation, int color, int divWidth) {
+        this.setOrientation(orientation);
+        mDividerWidth = divWidth;
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(color);
+        mPaint.setStyle(Paint.Style.FILL);
     }
 
-    /**
-     * @return the {@link Drawable} for this divider.
-     */
-    @Nullable
-    public Drawable getDrawable() {
-        return mDivider;
-    }
-
-    @Override
-    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        if (parent.getLayoutManager() == null || mDivider == null) {
-            return;
-        }
-        if (mOrientation == VERTICAL) {
-            drawVertical(c, parent);
-        } else if (mOrientation == HORIZONTAL) {
-            drawHorizontal(c, parent);
-        } else {
-            drawVertical(c, parent);
-            drawHorizontal(c, parent);
-        }
-    }
-
-    private void drawVertical(Canvas canvas, RecyclerView parent) {
-        canvas.save();
-        final int left;
-        final int right;
-        //noinspection AndroidLintNewApi - NewApi lint fails to handle overrides.
-        if (parent.getClipToPadding()) {
-            left = parent.getPaddingLeft();
-            right = parent.getWidth() - parent.getPaddingRight();
-            canvas.clipRect(left, parent.getPaddingTop(), right,
-                    parent.getHeight() - parent.getPaddingBottom());
-        } else {
-            left = 0;
-            right = parent.getWidth();
-        }
-
-        final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-
-            if (isLastRow(childCount, i, parent))
-                continue;
-            final View child = parent.getChildAt(i);
-            parent.getDecoratedBoundsWithMargins(child, mBounds);
-            final int bottom = mBounds.bottom + Math.round(child.getTranslationY());
-            final int top = bottom - mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(canvas);
-        }
-        canvas.restore();
-    }
-
-    private void drawHorizontal(Canvas canvas, RecyclerView parent) {
-        canvas.save();
-        final int top;
-        final int bottom;
-        //noinspection AndroidLintNewApi - NewApi lint fails to handle overrides.
-        if (parent.getClipToPadding()) {
-            top = parent.getPaddingTop();
-            bottom = parent.getHeight() - parent.getPaddingBottom();
-            canvas.clipRect(parent.getPaddingLeft(), top,
-                    parent.getWidth() - parent.getPaddingRight(), bottom);
-        } else {
-            top = 0;
-            bottom = parent.getHeight();
-        }
-
-        final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            if (isLastColumn(i, parent))
-                continue;
-            final View child = parent.getChildAt(i);
-            parent.getLayoutManager().getDecoratedBoundsWithMargins(child, mBounds);
-            final int right = mBounds.right + Math.round(child.getTranslationX());
-            final int left = right - mDivider.getIntrinsicWidth();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(canvas);
-        }
-        canvas.restore();
-    }
-
-    @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                               RecyclerView.State state) {
-        if (mDivider == null) {
-            outRect.set(0, 0, 0, 0);
-            return;
-        }
-        if (mOrientation == VERTICAL) {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-        } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-        }
-    }
-
-    /**
-     * 最后一列
-     *
-     * @param index  当前child下标
-     * @param parent
-     * @return
-     */
-    private boolean isLastColumn(int index, RecyclerView parent) {
-        int spanCount = getSpanCount(parent);
-        if (spanCount == 0) {
-            return true;
-        }
-        return (index + 1) % spanCount == 0;
-    }
-
-    /**
-     * 最后一行
-     *
-     * @param childCount
-     * @param index      当前child下标
-     * @param parent
-     * @return
-     */
-    private boolean isLastRow(int childCount, int index, RecyclerView parent) {
-        int spanCount = getSpanCount(parent);
-        if (spanCount == 0) {
-            return childCount == index + 1;
-        }
-        int maxRow = childCount / spanCount + (childCount % spanCount == 0 ? 0 : 1);
-        int indexRow = (index + 1) / spanCount + ((index + 1) % spanCount == 0 ? 0 : 1);
-        return maxRow == indexRow;
-    }
-
-    private int getSpanCount(RecyclerView parent) {
+    private int getRealOrientation(RecyclerView parent) {
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         if (manager instanceof GridLayoutManager) {
-            return ((GridLayoutManager) manager).getSpanCount();
+            return GRID_DIV;
+        } else if (manager instanceof LinearLayoutManager) {
+            int o = ((LinearLayoutManager) manager).getOrientation();
+            if (o == RecyclerView.HORIZONTAL) {
+                return HORIZONTAL_DIV;
+            } else {
+                return VERTICAL_DIV;
+            }
         }
-        return 0;
+        return VERTICAL_DIV;
+    }
+
+    @Override
+    public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        mOrientation = getRealOrientation(parent);
+        switch (mOrientation) {
+            case HORIZONTAL_DIV:
+                //横向布局分割线
+                drawHorizontal(c, parent);
+                break;
+            case VERTICAL_DIV:
+                //纵向布局分割线
+                drawVertical(c, parent);
+                break;
+            case GRID_DIV:
+                //表格格局分割线
+                drawGrid(c, parent);
+                break;
+            default:
+                //纵向布局分割线
+                drawVertical(c, parent);
+                break;
+        }
+    }
+
+    @Override
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+        int itemPosition = parent.getChildAdapterPosition(view);
+        RecyclerView.Adapter mAdapter = parent.getAdapter();
+        if (mAdapter != null) {
+            int mChildCount = mAdapter.getItemCount();
+            mOrientation = getRealOrientation(parent);
+            switch (mOrientation) {
+                case HORIZONTAL_DIV:
+                    /**
+                     * 横向布局分割线
+                     * <p>
+                     *     如果是第一个Item，则不需要分割线
+                     * </p>
+                     */
+                    if (itemPosition != 0) {
+                        outRect.set(mDividerWidth, 0, 0, 0);
+                    }
+                    break;
+                case VERTICAL_DIV:
+                    /**
+                     * 纵向布局分割线
+                     * <p>
+                     *     如果是第一个Item，则不需要分割线
+                     * </p>
+                     */
+                    if (itemPosition != 0) {
+                        outRect.set(0, mDividerWidth, 0, 0);
+                    }
+                    break;
+                case GRID_DIV:
+                    /**
+                     * 表格格局分割线
+                     * <p>
+                     *      1：当是第一个Item的时候，四周全部需要分割线
+                     *      2：当是第一行Item的时候，需要额外添加顶部的分割线
+                     *      3：当是第一列Item的时候，需要额外添加左侧的分割线
+                     *      4：默认情况全部添加底部和右侧的分割线
+                     * </p>
+                     */
+                    RecyclerView.LayoutManager mLayoutManager = parent.getLayoutManager();
+                    if (mLayoutManager instanceof GridLayoutManager) {
+                        GridLayoutManager mGridLayoutManager = (GridLayoutManager) mLayoutManager;
+                        int mSpanCount = mGridLayoutManager.getSpanCount();
+                        int maxRow = mChildCount / mSpanCount + (mChildCount % mSpanCount == 0 ? 0 : 1);
+                        int indexRow = (itemPosition + 1) / mSpanCount + ((itemPosition + 1) % mSpanCount == 0 ? 0 : 1);
+                        int top = 0, left = 0, right = 0, bottom = 0;
+                        if ((itemPosition + 1) <= mSpanCount && isDrawOuterBorder) {
+                            top = mDividerWidth;
+                        }
+                        if (((itemPosition + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
+                            left = mDividerWidth;
+                        }
+                        if ((itemPosition + 1) % mSpanCount != 0 || isDrawOuterBorder) {
+                            right = mDividerWidth;
+                        }
+                        if (indexRow != maxRow || isDrawOuterBorder) {
+                            bottom = mDividerWidth;
+                        }
+                        outRect.set(left, top, right, bottom);
+                    }
+                    break;
+                default:
+                    //纵向布局分割线
+                    if (itemPosition != (mChildCount - 1)) {
+                        outRect.set(0, 0, 0, mDividerWidth);
+                    }
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 绘制横向列表分割线
+     *
+     * @param c      绘制容器
+     * @param parent RecyclerView
+     */
+    private void drawHorizontal(Canvas c, RecyclerView parent) {
+        int mChildCount = parent.getChildCount();
+        for (int i = 0; i < mChildCount; i++) {
+            if (i == 0 && !isDrawOuterBorder) continue;
+            View mChild = parent.getChildAt(i);
+            drawLeft(c, mChild, parent);
+        }
+    }
+
+    /**
+     * 绘制纵向列表分割线
+     *
+     * @param c      绘制容器
+     * @param parent RecyclerView
+     */
+    private void drawVertical(Canvas c, RecyclerView parent) {
+        int mChildCount = parent.getChildCount();
+        for (int i = 0; i < mChildCount; i++) {
+            if (i == 0 && !isDrawOuterBorder) continue;
+            View mChild = parent.getChildAt(i);
+            drawTop(c, mChild, parent);
+        }
+    }
+
+    /**
+     * 绘制表格类型分割线
+     *
+     * @param c      绘制容器
+     * @param parent RecyclerView
+     */
+    private void drawGrid(Canvas c, RecyclerView parent) {
+        int mChildCount = parent.getChildCount();
+        for (int i = 0; i < mChildCount; i++) {
+            View mChild = parent.getChildAt(i);
+            RecyclerView.LayoutManager mLayoutManager = parent.getLayoutManager();
+            if (mLayoutManager instanceof GridLayoutManager) {
+                GridLayoutManager mGridLayoutManager = (GridLayoutManager) mLayoutManager;
+                int mSpanCount = mGridLayoutManager.getSpanCount();
+                if ((i + 1) <= mSpanCount && isDrawOuterBorder) {
+                    drawTop(c, mChild, parent);
+                }
+                if (((i + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
+                    drawLeft(c, mChild, parent);
+                }
+                if ((i + 1) % mSpanCount != 0 || isDrawOuterBorder) {
+                    drawRight(c, mChild, parent);
+                }
+                int maxRow = mChildCount / mSpanCount + (mChildCount % mSpanCount == 0 ? 0 : 1);
+                int indexRow = (i + 1) / mSpanCount + ((i + 1) % mSpanCount == 0 ? 0 : 1);
+                if (indexRow != maxRow || isDrawOuterBorder) {
+                    drawBottom(c, mChild, parent);
+                }
+            }
+        }
+    }
+
+    /**
+     * 绘制右边分割线
+     *
+     * @param c            绘制容器
+     * @param mChild       对应ItemView
+     * @param recyclerView RecyclerView
+     */
+    private void drawLeft(Canvas c, View mChild, RecyclerView recyclerView) {
+        RecyclerView.LayoutParams mChildLayoutParams = (RecyclerView.LayoutParams) mChild.getLayoutParams();
+        int left = mChild.getLeft() - mDividerWidth - mChildLayoutParams.leftMargin;
+        int top = mChild.getTop() - mChildLayoutParams.topMargin;
+        int right = mChild.getLeft() - mChildLayoutParams.leftMargin;
+        int bottom;
+        if (isGridLayoutManager(recyclerView)) {
+            bottom = mChild.getBottom() + mChildLayoutParams.bottomMargin + mDividerWidth;
+        } else {
+            bottom = mChild.getBottom() + mChildLayoutParams.bottomMargin;
+        }
+        c.drawRect(left, top, right, bottom, mPaint);
+    }
+
+    /**
+     * 绘制顶部分割线
+     *
+     * @param c            绘制容器
+     * @param mChild       对应ItemView
+     * @param recyclerView RecyclerView
+     */
+    private void drawTop(Canvas c, View mChild, RecyclerView recyclerView) {
+        RecyclerView.LayoutParams mChildLayoutParams = (RecyclerView.LayoutParams) mChild.getLayoutParams();
+        int left;
+        int top = mChild.getTop() - mChildLayoutParams.topMargin - mDividerWidth;
+        int right = mChild.getRight() + mChildLayoutParams.rightMargin;
+        int bottom = mChild.getTop() - mChildLayoutParams.topMargin;
+        if (isGridLayoutManager(recyclerView)) {
+            left = mChild.getLeft() - mChildLayoutParams.leftMargin - mDividerWidth;
+        } else {
+            left = mChild.getLeft() - mChildLayoutParams.leftMargin;
+        }
+        c.drawRect(left, top, right, bottom, mPaint);
+    }
+
+    /**
+     * 绘制右边分割线
+     *
+     * @param c            绘制容器
+     * @param mChild       对应ItemView
+     * @param recyclerView RecyclerView
+     */
+    private void drawRight(Canvas c, View mChild, RecyclerView recyclerView) {
+        RecyclerView.LayoutParams mChildLayoutParams = (RecyclerView.LayoutParams) mChild.getLayoutParams();
+        int left = mChild.getRight() + mChildLayoutParams.rightMargin;
+        int top;
+        int right = left + mDividerWidth;
+        int bottom = mChild.getBottom() + mChildLayoutParams.bottomMargin;
+        if (isGridLayoutManager(recyclerView)) {
+            top = mChild.getTop() - mChildLayoutParams.topMargin - mDividerWidth;
+        } else {
+            top = mChild.getTop() - mChildLayoutParams.topMargin;
+        }
+        c.drawRect(left, top, right, bottom, mPaint);
+    }
+
+    /**
+     * 绘制底部分割线
+     *
+     * @param c            绘制容器
+     * @param mChild       对应ItemView
+     * @param recyclerView RecyclerView
+     */
+    private void drawBottom(Canvas c, View mChild, RecyclerView recyclerView) {
+        RecyclerView.LayoutParams mChildLayoutParams = (RecyclerView.LayoutParams) mChild.getLayoutParams();
+        int left = mChild.getLeft() - mChildLayoutParams.leftMargin;
+        int top = mChild.getBottom() + mChildLayoutParams.bottomMargin;
+        int bottom = top + mDividerWidth;
+        int right;
+        if (isGridLayoutManager(recyclerView)) {
+            right = mChild.getRight() + mChildLayoutParams.rightMargin + mDividerWidth;
+        } else {
+            right = mChild.getRight() + mChildLayoutParams.rightMargin;
+        }
+        c.drawRect(left, top, right, bottom, mPaint);
+    }
+
+    /**
+     * 判断RecyclerView所加载LayoutManager是否为GridLayoutManager
+     *
+     * @param recyclerView RecyclerView
+     * @return 是GridLayoutManager返回true，否则返回false
+     */
+    private boolean isGridLayoutManager(RecyclerView recyclerView) {
+        RecyclerView.LayoutManager mLayoutManager = recyclerView.getLayoutManager();
+        return (mLayoutManager instanceof GridLayoutManager);
+    }
+
+    /**
+     * 初始化分割线类型
+     *
+     * @param orientation 分割线类型
+     */
+    public void setOrientation(int orientation) {
+        if (mOrientation != HORIZONTAL_DIV && mOrientation != VERTICAL_DIV && mOrientation != GRID_DIV) {
+            throw new IllegalArgumentException("ItemDecorationPowerful：分割线类型设置异常");
+        } else {
+            this.mOrientation = orientation;
+        }
+    }
+
+    /**
+     * 是否绘制外边框
+     *
+     * @param isDrawOuterBorder
+     * @return
+     */
+    public MyDividerItemDecoration setDrawOuterBorder(boolean isDrawOuterBorder) {
+        this.isDrawOuterBorder = isDrawOuterBorder;
+        return this;
     }
 }
 
