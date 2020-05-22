@@ -23,6 +23,7 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
     private Paint mPaint;
 
     private boolean isDrawOuterBorder = false;//默认不绘制边框
+    private boolean hasTitle = false;//是否有标题
 
     /**
      * 默认纵向布分割线
@@ -134,16 +135,20 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
                     if (mLayoutManager instanceof GridLayoutManager) {
                         GridLayoutManager mGridLayoutManager = (GridLayoutManager) mLayoutManager;
                         int mSpanCount = mGridLayoutManager.getSpanCount();
-                        int maxRow = mChildCount / mSpanCount + (mChildCount % mSpanCount == 0 ? 0 : 1);
-                        int indexRow = (itemPosition + 1) / mSpanCount + ((itemPosition + 1) % mSpanCount == 0 ? 0 : 1);
                         int top = 0, left = 0, right = 0, bottom = 0;
-                        if ((itemPosition + 1) <= mSpanCount && isDrawOuterBorder) {
+                        int realIndex = 0;
+                        if (hasTitle) {
+                            realIndex = itemPosition - 1;
+                        }
+                        int maxRow = mChildCount / mSpanCount + (mChildCount % mSpanCount == 0 ? 0 : 1);
+                        int indexRow = (realIndex + 1) / mSpanCount + ((realIndex + 1) % mSpanCount == 0 ? 0 : 1);
+                        if ((realIndex + 1) <= mSpanCount && isDrawOuterBorder) {
                             top = mDividerWidth;
                         }
-                        if (((itemPosition + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
+                        if (((realIndex + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
                             left = mDividerWidth;
                         }
-                        if ((itemPosition + 1) % mSpanCount != 0 || isDrawOuterBorder) {
+                        if ((realIndex + 1) % mSpanCount != 0 || isDrawOuterBorder) {
                             right = mDividerWidth;
                         }
                         if (indexRow != maxRow || isDrawOuterBorder) {
@@ -206,17 +211,25 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
             if (mLayoutManager instanceof GridLayoutManager) {
                 GridLayoutManager mGridLayoutManager = (GridLayoutManager) mLayoutManager;
                 int mSpanCount = mGridLayoutManager.getSpanCount();
-                if ((i + 1) <= mSpanCount && isDrawOuterBorder) {
+                int realIndex = 0;
+                if (hasTitle) {
+                    if (i == 0) {
+                        drawBottom(c, mChild, parent);
+                        continue;
+                    }
+                    realIndex = i - 1;
+                }
+                if ((realIndex + 1) <= mSpanCount && isDrawOuterBorder) {
                     drawTop(c, mChild, parent);
                 }
-                if (((i + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
+                if (((realIndex + mSpanCount) % mSpanCount) == 0 && isDrawOuterBorder) {
                     drawLeft(c, mChild, parent);
                 }
-                if ((i + 1) % mSpanCount != 0 || isDrawOuterBorder) {
+                if ((realIndex + 1) % mSpanCount != 0 || isDrawOuterBorder) {
                     drawRight(c, mChild, parent);
                 }
                 int maxRow = mChildCount / mSpanCount + (mChildCount % mSpanCount == 0 ? 0 : 1);
-                int indexRow = (i + 1) / mSpanCount + ((i + 1) % mSpanCount == 0 ? 0 : 1);
+                int indexRow = (realIndex + 1) / mSpanCount + ((realIndex + 1) % mSpanCount == 0 ? 0 : 1);
                 if (indexRow != maxRow || isDrawOuterBorder) {
                     drawBottom(c, mChild, parent);
                 }
@@ -326,7 +339,7 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
      */
     public void setOrientation(int orientation) {
         if (mOrientation != HORIZONTAL_DIV && mOrientation != VERTICAL_DIV && mOrientation != GRID_DIV) {
-            throw new IllegalArgumentException("ItemDecorationPowerful：分割线类型设置异常");
+            throw new IllegalArgumentException("MyDividerItemDecoration：分割线类型设置异常");
         } else {
             this.mOrientation = orientation;
         }
@@ -340,6 +353,11 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
      */
     public MyDividerItemDecoration setDrawOuterBorder(boolean isDrawOuterBorder) {
         this.isDrawOuterBorder = isDrawOuterBorder;
+        return this;
+    }
+
+    public MyDividerItemDecoration setHasTitle(boolean hasTitle) {
+        this.hasTitle = hasTitle;
         return this;
     }
 }
