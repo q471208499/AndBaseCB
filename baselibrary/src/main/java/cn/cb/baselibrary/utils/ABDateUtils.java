@@ -140,11 +140,7 @@ public class ABDateUtils {
 
     public static String getCurDateStr() {
         Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        return c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" +
-                c.get(Calendar.DAY_OF_MONTH) + "-" +
-                c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) +
-                ":" + c.get(Calendar.SECOND);
+        return date2Str(c, getDatePattern());
     }
 
     /**
@@ -156,7 +152,6 @@ public class ABDateUtils {
     public static String getCurDateStr(String format) {
         Calendar c = Calendar.getInstance();
         return date2Str(c, format);
-
     }
 
     /**
@@ -302,7 +297,6 @@ public class ABDateUtils {
      * @return 默认的格式
      */
     public static String getDatePattern() {
-
         return FORMAT_YMDHMS;
     }
 
