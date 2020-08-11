@@ -25,27 +25,19 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
     private boolean isDrawOuterBorder = false;//默认不绘制边框
     private boolean hasTitle = false;//是否有标题
 
-    /**
-     * 默认纵向布分割线
-     */
     public MyDividerItemDecoration() {
-        this(VERTICAL_DIV);
+        this(Color.parseColor("#EEEEEE"), 2);
+    }
+
+    public MyDividerItemDecoration(String color) {
+        this(Color.parseColor(color), 2);
     }
 
     /**
-     * @param orientation 方向类型
+     * @param color    分割线颜色
+     * @param divWidth 分割线宽度
      */
-    public MyDividerItemDecoration(int orientation) {
-        this(orientation, Color.parseColor("#EEEEEE"), 2);
-    }
-
-    /**
-     * @param orientation 方向类型
-     * @param color       分割线颜色
-     * @param divWidth    分割线宽度
-     */
-    public MyDividerItemDecoration(int orientation, int color, int divWidth) {
-        this.setOrientation(orientation);
+    public MyDividerItemDecoration(int color, int divWidth) {
         mDividerWidth = divWidth;
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
