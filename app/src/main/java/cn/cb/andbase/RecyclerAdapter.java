@@ -18,18 +18,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
+        myViewHolder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 15;
+        return 13;
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
+        private View item;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            item = itemView;
         }
     }
 }
