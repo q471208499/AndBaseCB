@@ -40,30 +40,6 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         setColorString(colorString);
     }
 
-    public MyDividerItemDecoration setLineWidth(int lineWidth) {
-        this.lineWidth = lineWidth;
-        return this;
-    }
-
-    public MyDividerItemDecoration setDrawOuterBorder(boolean drawOuterBorder) {
-        this.drawOuterBorder = drawOuterBorder;
-        return this;
-    }
-
-    public MyDividerItemDecoration setColorString(String colorString) {
-        this.colorString = colorString;
-        this.mPaint = new Paint();
-        this.mPaint.setAntiAlias(true);
-        this.mPaint.setStyle(Paint.Style.FILL);
-        this.mPaint.setColor(Color.parseColor(colorString));
-        return this;
-    }
-
-    public MyDividerItemDecoration setHasTitle(boolean hasTitle) {
-        this.hasTitle = hasTitle;
-        return this;
-    }
-
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
@@ -262,6 +238,55 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         int left = child.getLeft() - layoutParams.leftMargin - lineWidth;
         int right = child.getRight() + layoutParams.rightMargin + lineWidth;
         c.drawRect(left, top, right, bottom, mPaint);
+    }
+
+    public MyDividerItemDecoration setLineWidth(int lineWidth) {
+        this.lineWidth = lineWidth;
+        return this;
+    }
+
+    public MyDividerItemDecoration setDrawOuterBorder(boolean drawOuterBorder) {
+        this.drawOuterBorder = drawOuterBorder;
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString(String colorString) {
+        this.colorString = colorString;
+        this.mPaint = new Paint();
+        this.mPaint.setAntiAlias(true);
+        this.mPaint.setStyle(Paint.Style.FILL);
+        this.mPaint.setColor(Color.parseColor(colorString));
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString5() {
+        setColorString("#f2f2f2");
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString15() {
+        setColorString("#d8d8d8");
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString25() {
+        setColorString("#bfbfbf");
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString35() {
+        setColorString("#a5a5a5");
+        return this;
+    }
+
+    public MyDividerItemDecoration setColorString50() {
+        setColorString("#7f7f7f");
+        return this;
+    }
+
+    public MyDividerItemDecoration setHasTitle(boolean hasTitle) {
+        this.hasTitle = hasTitle;
+        return this;
     }
 }
 

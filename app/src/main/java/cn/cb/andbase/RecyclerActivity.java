@@ -32,7 +32,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
         RecyclerView recyclerView3 = findViewById(R.id.recycler_demo3);
         recyclerView3.setLayoutManager(new GridLayoutManager(this, 3));
-        recyclerView3.addItemDecoration(new MyDividerItemDecoration().setDrawOuterBorder(outerBorder));
+        recyclerView3.addItemDecoration(new MyDividerItemDecoration().setDrawOuterBorder(outerBorder).setColorString("#ff9d1d"));
         recyclerView3.setAdapter(new RecyclerAdapter());
 //
 //
