@@ -29,17 +29,15 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
     private String colorString = "#eeeeee";
 
     public MyDividerItemDecoration() {
-        this.mPaint = new Paint();
-        this.mPaint.setAntiAlias(true);
-        this.mPaint.setStyle(Paint.Style.FILL);
-        this.mPaint.setColor(Color.parseColor(colorString));
+        setColorString(colorString);
     }
 
     public MyDividerItemDecoration(int lineWidth, boolean drawOuterBorder, String colorString, boolean hasTitle) {
         this.lineWidth = lineWidth;
         this.drawOuterBorder = drawOuterBorder;
-        this.colorString = colorString;
+        //this.colorString = colorString;
         this.hasTitle = hasTitle;
+        setColorString(colorString);
     }
 
     public MyDividerItemDecoration setLineWidth(int lineWidth) {
@@ -54,6 +52,10 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
 
     public MyDividerItemDecoration setColorString(String colorString) {
         this.colorString = colorString;
+        this.mPaint = new Paint();
+        this.mPaint.setAntiAlias(true);
+        this.mPaint.setStyle(Paint.Style.FILL);
+        this.mPaint.setColor(Color.parseColor(colorString));
         return this;
     }
 
