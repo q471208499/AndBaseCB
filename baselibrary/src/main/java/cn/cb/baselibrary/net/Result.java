@@ -7,22 +7,22 @@ public class Result {
     /**
      * 消息
      */
-    private String resultMsgKey = "message";
+    private final String resultMsgKey = "message";
     private String message = "";
     /**
      * 状态码
      */
-    private String resultCodeKey = "code";
+    private final String resultCodeKey = "code";
     private int code = 0;
     /**
      * 数据
      */
-    private String resultDataKey = "data";
+    private final String resultDataKey = "data";
     private Object data;
     /**
      * 是否成功
      */
-    private String resultSuccessKey = "success";
+    private final String resultSuccessKey = "success";
     private boolean success = false;
 
     // private static final int CODE_ERROR_1 = -1;
