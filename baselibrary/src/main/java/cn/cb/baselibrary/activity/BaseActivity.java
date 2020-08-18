@@ -214,4 +214,18 @@ public class BaseActivity extends AppCompatActivity {
         if (mLoadingDialog == null) return;
         mLoadingDialog.dismiss();
     }
+
+    protected void showFinishDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
+        builder.setTitle("提示");
+        builder.setMessage("是否退出软件？");
+        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
+    }
 }
