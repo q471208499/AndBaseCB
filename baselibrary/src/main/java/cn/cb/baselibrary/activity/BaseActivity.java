@@ -115,9 +115,8 @@ public class BaseActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        } else {
-            return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     protected void dialogWhich(String[] items, DialogInterface.OnClickListener listener) {
@@ -175,7 +174,7 @@ public class BaseActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-            MyToast.showL("没有安装");
+            MyToast.showL(R.string.toast_not_installed);
         }
     }
 
@@ -217,15 +216,15 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void showFinishDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
-        builder.setTitle("提示");
-        builder.setMessage("是否退出软件？");
-        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.dialog_prompt);
+        builder.setMessage(R.string.dialog_exit_software);
+        builder.setPositiveButton(R.string.dialog_exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
-        builder.setNegativeButton("取消", null);
+        builder.setNegativeButton(R.string.dialog_cancel, null);
         builder.show();
     }
 }
