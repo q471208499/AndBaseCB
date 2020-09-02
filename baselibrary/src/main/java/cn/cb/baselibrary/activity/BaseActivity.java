@@ -210,6 +210,7 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog = new ProgressDialog(this);
         mLoadingDialog.setTitle(R.string.loading_txt);
         mLoadingDialog.setCancelable(false);
+        mLoadingDialog.show();
     }
 
     protected void dismissLoading() {
