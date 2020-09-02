@@ -33,7 +33,7 @@ public class CommonOkHttpClient {
     /**
      * 超时时间
      */
-    private static final int TIME_OUT = 30;
+    private static final int TIME_OUT = 10;
     private static OkHttpClient mOkHttpClient;
 
     /*

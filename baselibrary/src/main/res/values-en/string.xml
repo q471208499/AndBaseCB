@@ -11,4 +11,5 @@
     <string name="dialog_cancel">No</string>
 
     <string name="toast_not_installed">Not installed</string>
+    <string name="loading_txt">Loading...</string>
 </resources>

@@ -21,10 +21,8 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * @author：PengJunShan.
-
- * 时间：On 2019-05-05.
-
+ * @author：PengJunShan. 时间：On 2019-05-05.
+ * <p>
  * 描述：ssl支持
  */
 

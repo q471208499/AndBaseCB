@@ -1,12 +1,12 @@
 package cn.cb.baselibrary.activity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -30,13 +30,13 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import cn.cb.baselibrary.R;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import es.dmoral.toasty.MyToast;
 
 public class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     private int whichSelect;
-    private SweetAlertDialog mLoadingDialog;
+    //private SweetAlertDialog mLoadingDialog;
+    private ProgressDialog mLoadingDialog;
 
     protected final String INTENT_EXTRA_RESULT_STR = "INTENT_EXTRA_RESULT_STR";
 
@@ -202,16 +202,23 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showLoading() {
-        mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+       /* mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mLoadingDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mLoadingDialog.setTitleText("Loading");
         mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();
+        mLoadingDialog.show();*/
+        mLoadingDialog = new ProgressDialog(this);
+        mLoadingDialog.setTitle(R.string.loading_txt);
+        mLoadingDialog.setCancelable(false);
     }
 
     protected void dismissLoading() {
         if (mLoadingDialog == null) return;
         mLoadingDialog.dismiss();
+    }
+
+    protected void setLoadingCancelable(boolean flag) {
+        mLoadingDialog.setCancelable(flag);
     }
 
     protected void showFinishDialog() {
