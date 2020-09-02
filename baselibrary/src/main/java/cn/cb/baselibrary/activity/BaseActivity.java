@@ -208,14 +208,22 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog.setCancelable(false);
         mLoadingDialog.show();*/
         mLoadingDialog = new ProgressDialog(this);
-        mLoadingDialog.setTitle(R.string.loading_txt);
+        //mLoadingDialog.setTitle();
         mLoadingDialog.setCancelable(false);
         mLoadingDialog.show();
     }
 
+    protected void changeLoadingTitle(String title) {
+        if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.setTitle(title);
+            mLoadingDialog.show();
+        }
+    }
+
     protected void dismissLoading() {
-        if (mLoadingDialog == null) return;
-        mLoadingDialog.dismiss();
+        if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
     protected void setLoadingCancelable(boolean flag) {
