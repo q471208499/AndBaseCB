@@ -2,9 +2,9 @@ package cn.cb.baselibrary.fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,10 +17,9 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 public class BaseFragment extends Fragment {
-    private SweetAlertDialog mLoadingDialog;
+    //private SweetAlertDialog mLoadingDialog;
+    private ProgressDialog mLoadingDialog;
 
     @Override
     public void onResume() {
@@ -82,15 +81,31 @@ public class BaseFragment extends Fragment {
     }
 
     protected void showLoading() {
-        mLoadingDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        /* mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mLoadingDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mLoadingDialog.setTitleText("Loading");
+        mLoadingDialog.setCancelable(false);
+        mLoadingDialog.show();*/
+        mLoadingDialog = new ProgressDialog(getContext());
+        //mLoadingDialog.setTitle();
         mLoadingDialog.setCancelable(false);
         mLoadingDialog.show();
     }
 
+    protected void changeLoadingTitle(String title) {
+        if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.setTitle(title);
+            mLoadingDialog.show();
+        }
+    }
+
     protected void dismissLoading() {
-        if (mLoadingDialog == null) return;
-        mLoadingDialog.dismiss();
+        if (mLoadingDialog.isShowing()) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
+    protected void setLoadingCancelable(boolean flag) {
+        mLoadingDialog.setCancelable(flag);
     }
 }
