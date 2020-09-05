@@ -1,6 +1,5 @@
 package cn.cb.baselibrary.activity;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,33 +9,33 @@ import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.lang.reflect.Method;
-import java.util.Calendar;
 
 import cn.cb.baselibrary.R;
 import es.dmoral.toasty.MyToast;
 
 public class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
-    private int whichSelect;
     //private SweetAlertDialog mLoadingDialog;
     private ProgressDialog mLoadingDialog;
+    private final int DIALOG_DISMISS = 1128;
+    private final int DIALOG_SHOW = 1128;
 
     protected final String INTENT_EXTRA_RESULT_STR = "INTENT_EXTRA_RESULT_STR";
 
@@ -119,49 +118,6 @@ public class BaseActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void dialogWhich(String[] items, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setSingleChoiceItems(items, whichSelect, listener);
-        builder.show();
-    }
-
-    protected void dialogWhichSex(@Nullable final View view) {
-        final String[] sexs = new String[]{"男", "女"};
-        dialogWhich(sexs, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                String sex = sexs[which];
-                whichSelect = which;
-                if (view instanceof TextView) {
-                    ((TextView) view).setText(sex);
-                }
-            }
-        });
-    }
-
-    protected void showDatePicker(@Nullable final View view) {
-        hideInput();
-        datePicker(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker dialog, int year, int month, int dayOfMonth) {
-                String dateStr = year + "-" + (month + 1) + "-" + dayOfMonth;
-                if (view instanceof TextView) {
-                    ((TextView) view).setText(dateStr);
-                }
-            }
-        });
-    }
-
-    protected void datePicker(@Nullable DatePickerDialog.OnDateSetListener listener) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(this, listener, year, month, day);
-        dialog.show();
-    }
-
     protected void restartAPP() {
         launchToAPP(getPackageName());
         android.os.Process.killProcess(android.os.Process.myPid());
@@ -188,29 +144,20 @@ public class BaseActivity extends AppCompatActivity {
         return packageInfo != null;
     }
 
-    protected void showDialog(String title, String msg, String pName, String nName, DialogInterface.OnClickListener pListener, DialogInterface.OnClickListener nListener) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        if (!TextUtils.isEmpty(title))
-            dialog.setTitle(title);
-        if (!TextUtils.isEmpty(msg))
-            dialog.setMessage(msg);
-        if (!TextUtils.isEmpty(pName))
-            dialog.setPositiveButton(pName, pListener);
-        if (!TextUtils.isEmpty(nName))
-            dialog.setNegativeButton(nName, nListener);
-        dialog.show();
-    }
-
     protected void showLoading() {
        /* mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         mLoadingDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         mLoadingDialog.setTitleText("Loading");
         mLoadingDialog.setCancelable(false);
         mLoadingDialog.show();*/
-        mLoadingDialog = new ProgressDialog(this);
+        /*mLoadingDialog = new ProgressDialog(this);
         //mLoadingDialog.setTitle();
         mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();
+        mLoadingDialog.show();*/
+
+        Message message = new Message();
+        message.what = DIALOG_SHOW;
+        handler.handleMessage(message);
     }
 
     protected void changeLoadingTitle(String title) {
@@ -220,10 +167,25 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    protected void dismissLoading() {
-        if (mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == DIALOG_DISMISS) {
+                if (mLoadingDialog.isShowing()) mLoadingDialog.dismiss();
+            } else if (msg.what == DIALOG_SHOW) {
+                mLoadingDialog = new ProgressDialog(BaseActivity.this);
+                //mLoadingDialog.setTitle();
+                mLoadingDialog.setCancelable(false);
+                mLoadingDialog.show();
+            }
         }
+    };
+
+    protected void dismissLoading() {
+        Message message = new Message();
+        message.what = DIALOG_DISMISS;
+        handler.handleMessage(message);
     }
 
     protected void setLoadingCancelable(boolean flag) {
