@@ -16,6 +16,7 @@ public class LoadingActivity extends BaseActivity {
 
         findViewById(R.id.loading_btn).setOnClickListener(clickListener);
         findViewById(R.id.loading_btn2).setOnClickListener(clickListener);
+        findViewById(R.id.loading_btn3).setOnClickListener(clickListener);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -28,9 +29,17 @@ public class LoadingActivity extends BaseActivity {
                     public void run() {
                         dismissLoading();
                     }
-                }, 10000);
+                }, 3000);
             } else if (v.getId() == R.id.loading_btn2) {
                 showCountDownTimerDialogS(10);
+            } else if (v.getId() == R.id.loading_btn3) {
+                showLoading();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissLoading();
+                    }
+                }, 3000);
             }
         }
     };

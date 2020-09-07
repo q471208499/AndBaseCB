@@ -178,15 +178,10 @@ public class BaseActivity extends AppCompatActivity {
                 mLoadingDialog.setCancelable(false);
                 mLoadingDialog.show();
             } else if (msg.what == DIALOG_SET_TITLE) {
-                if (mLoadingDialog == null) {
-                    mLoadingDialog = new ProgressDialog(BaseActivity.this);
-                    mLoadingDialog.setCancelable(false);
-                    mLoadingDialog.setTitle(msg.obj.toString());
-                    mLoadingDialog.show();
-                } else if (mLoadingDialog.isShowing()) {
-                    mLoadingDialog.setTitle(msg.obj.toString());
-                    mLoadingDialog.show();
-                }
+                mLoadingDialog = new ProgressDialog(BaseActivity.this);
+                mLoadingDialog.setCancelable(false);
+                mLoadingDialog.setTitle(msg.obj.toString());
+                mLoadingDialog.show();
             } else if (msg.what == DIALOG_COUNT_DOWN_TIMER) {
                 if (mLoadingDialog == null) {
                     mLoadingDialog = new ProgressDialog(BaseActivity.this);
