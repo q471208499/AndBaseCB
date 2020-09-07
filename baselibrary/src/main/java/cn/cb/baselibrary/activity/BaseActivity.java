@@ -35,7 +35,9 @@ public class BaseActivity extends AppCompatActivity {
     //private SweetAlertDialog mLoadingDialog;
     private ProgressDialog mLoadingDialog;
     private final int DIALOG_DISMISS = 1128;
-    private final int DIALOG_SHOW = 1128;
+    private final int DIALOG_SHOW = 1129;
+    private final int DIALOG_SET_TITLE = 1130;
+    private final int DIALOG_COUNT_DOWN_TIMER = 1131;
 
     protected final String INTENT_EXTRA_RESULT_STR = "INTENT_EXTRA_RESULT_STR";
 
@@ -145,39 +147,63 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showLoading() {
-       /* mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        mLoadingDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mLoadingDialog.setTitleText("Loading");
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();*/
-        /*mLoadingDialog = new ProgressDialog(this);
-        //mLoadingDialog.setTitle();
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();*/
-
         Message message = new Message();
         message.what = DIALOG_SHOW;
         handler.handleMessage(message);
     }
 
-    protected void changeLoadingTitle(String title) {
-        if (mLoadingDialog.isShowing()) {
-            mLoadingDialog.setTitle(title);
-            mLoadingDialog.show();
-        }
+    protected void showCountDownTimerDialogS(int second) {
+        Message message = new Message();
+        message.what = DIALOG_COUNT_DOWN_TIMER;
+        message.obj = second + " s";
+        message.arg1 = second;
+        handler.handleMessage(message);
+    }
+
+    protected void showLoading(String title) {
+        Message message = new Message();
+        message.what = DIALOG_SHOW;
+        message.obj = title;
+        handler.handleMessage(message);
     }
 
     private Handler handler = new Handler() {
         @Override
-        public void handleMessage(@NonNull Message msg) {
+        public void handleMessage(@NonNull final Message msg) {
             super.handleMessage(msg);
             if (msg.what == DIALOG_DISMISS) {
                 if (mLoadingDialog.isShowing()) mLoadingDialog.dismiss();
             } else if (msg.what == DIALOG_SHOW) {
                 mLoadingDialog = new ProgressDialog(BaseActivity.this);
-                //mLoadingDialog.setTitle();
                 mLoadingDialog.setCancelable(false);
                 mLoadingDialog.show();
+            } else if (msg.what == DIALOG_SET_TITLE) {
+                if (mLoadingDialog == null) {
+                    mLoadingDialog = new ProgressDialog(BaseActivity.this);
+                    mLoadingDialog.setCancelable(false);
+                    mLoadingDialog.setTitle(msg.obj.toString());
+                    mLoadingDialog.show();
+                } else if (mLoadingDialog.isShowing()) {
+                    mLoadingDialog.setTitle(msg.obj.toString());
+                    mLoadingDialog.show();
+                }
+            } else if (msg.what == DIALOG_COUNT_DOWN_TIMER) {
+                if (mLoadingDialog == null) {
+                    mLoadingDialog = new ProgressDialog(BaseActivity.this);
+                    mLoadingDialog.setCancelable(false);
+                }
+                mLoadingDialog.setTitle(msg.obj.toString());
+                mLoadingDialog.show();
+                if (msg.arg1 == 0) {
+                    if (mLoadingDialog.isShowing()) mLoadingDialog.dismiss();
+                    return;
+                }
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showCountDownTimerDialogS(msg.arg1 - 1);
+                    }
+                }, 1000);
             }
         }
     };

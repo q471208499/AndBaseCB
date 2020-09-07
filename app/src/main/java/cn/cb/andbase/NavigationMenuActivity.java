@@ -50,6 +50,8 @@ public class NavigationMenuActivity extends BaseActivity {
                     cls = TestBrowserActivity.class;
                 } else if (index == 4) {
                     cls = MainActivity.class;
+                } else if (index == 5) {
+                    cls = LoadingActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -66,6 +68,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("update");
         result.add("Web");
         result.add("Main");
+        result.add("Loading");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }
