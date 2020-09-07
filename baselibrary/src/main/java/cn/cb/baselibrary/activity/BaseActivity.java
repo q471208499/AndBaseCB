@@ -172,6 +172,7 @@ public class BaseActivity extends AppCompatActivity {
         public void handleMessage(@NonNull final Message msg) {
             super.handleMessage(msg);
             if (msg.what == DIALOG_DISMISS) {
+                if (mLoadingDialog == null) return;
                 if (mLoadingDialog.isShowing()) mLoadingDialog.dismiss();
             } else if (msg.what == DIALOG_SHOW) {
                 mLoadingDialog = new ProgressDialog(BaseActivity.this);
@@ -210,6 +211,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setLoadingCancelable(boolean flag) {
+        if (mLoadingDialog == null) return;
         mLoadingDialog.setCancelable(flag);
     }
 
