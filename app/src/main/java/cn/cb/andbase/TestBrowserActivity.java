@@ -12,9 +12,10 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.utils.ABFileUtils;
 
-public class TestBrowserActivity extends AppCompatActivity {
+public class TestBrowserActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
 
     private WebView webView;
@@ -25,6 +26,7 @@ public class TestBrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_browser);
+        initBarView();
         findViewById(R.id.btn).setOnClickListener(clickListener);
 
         /*CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {

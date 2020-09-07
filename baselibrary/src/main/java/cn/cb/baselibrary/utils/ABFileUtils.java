@@ -170,13 +170,7 @@ public class ABFileUtils {
             try (PrintStream printStream = new PrintStream(temp)) {
                 object.put(key, value);
                 printStream.print(object.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return false;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return false;
             }
