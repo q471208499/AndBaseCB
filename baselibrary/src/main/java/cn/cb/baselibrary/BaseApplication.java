@@ -1,6 +1,5 @@
 package cn.cb.baselibrary;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -22,7 +21,7 @@ import cn.cb.baselibrary.update.UpdateModel;
 import es.dmoral.toasty.MyToast;
 import okhttp3.OkHttpClient;
 
-public class BaseApplication extends Application {
+public class BaseApplication extends CrashApplication {
     public static String APP_NAME = "";
     public static String PACKAGE_NAME = "";
     public static String VERSION_NAME = "";

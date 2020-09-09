@@ -1,4 +1,4 @@
-package cn.cb.andbase;
+package cn.cb.andbase.activity;
 
 import android.net.http.SslError;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.cb.andbase.R;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.utils.ABFileUtils;
 

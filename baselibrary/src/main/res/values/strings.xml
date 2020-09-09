@@ -13,4 +13,6 @@
     <string name="toast_not_installed">没有安装</string>
 
     <string name="loading_txt">加载中...</string>
+
+    <string name="app_crash">程序异常，请联系管理员</string>
 </resources>

@@ -1,9 +1,10 @@
-package cn.cb.andbase;
+package cn.cb.andbase.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import cn.cb.andbase.R;
 import cn.cb.baselibrary.activity.BaseActivity;
 
 public class LoadingActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package cn.cb.andbase;
+package cn.cb.andbase.activity;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cn.cb.andbase.R;
+import cn.cb.andbase.adapter.RecyclerAdapter;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.widget.MyDividerItemDecoration;
 

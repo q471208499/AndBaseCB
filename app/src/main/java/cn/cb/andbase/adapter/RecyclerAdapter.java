@@ -1,4 +1,4 @@
-package cn.cb.andbase;
+package cn.cb.andbase.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import cn.cb.andbase.R;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter {

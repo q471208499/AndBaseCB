@@ -1,4 +1,4 @@
-package cn.cb.andbase;
+package cn.cb.andbase.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import com.cretin.www.cretinautoupdatelibrary.interfaces.AppDownloadListener;
 import com.cretin.www.cretinautoupdatelibrary.utils.AppUpdateUtils;
 
+import cn.cb.andbase.R;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.net.okhttp3.OkHttpException;
 import cn.cb.baselibrary.net.okhttp3.RequestMode;

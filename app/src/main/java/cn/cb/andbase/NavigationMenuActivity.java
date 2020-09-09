@@ -10,6 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.cb.andbase.activity.CrashActivity;
+import cn.cb.andbase.activity.LoadingActivity;
+import cn.cb.andbase.activity.MainActivity;
+import cn.cb.andbase.activity.RecyclerActivity;
+import cn.cb.andbase.activity.TestBrowserActivity;
+import cn.cb.andbase.activity.UpdateActivity;
 import cn.cb.andbase.adapter.MyMenuAdapter;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.activity.SplashBaseActivity;
@@ -52,6 +58,8 @@ public class NavigationMenuActivity extends BaseActivity {
                     cls = MainActivity.class;
                 } else if (index == 5) {
                     cls = LoadingActivity.class;
+                } else if (index == 6) {
+                    cls = CrashActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -69,6 +77,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("Web");
         result.add("Main");
         result.add("Loading");
+        result.add("CrashActivity");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }

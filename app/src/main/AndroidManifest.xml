@@ -11,22 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeBase">
         <activity
-            android:name=".LoadingActivity"
+            android:name=".activity.CrashActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
-            android:name=".UpdateActivity"
+            android:name=".activity.LoadingActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
-            android:name=".RecyclerActivity"
+            android:name=".activity.UpdateActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
-            android:name=".TestBrowserActivity"
+            android:name=".activity.RecyclerActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
-            android:name=".SplashTestBaseActivity"
+            android:name=".activity.TestBrowserActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.SplashTestBaseActivity"
+            android:theme="@style/AppThemeBase.NoActionBar" />
+        <activity
+            android:name=".activity.MainActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity android:name=".NavigationMenuActivity">
             <intent-filter>
