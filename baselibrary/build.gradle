@@ -45,4 +45,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.1'
 
     implementation 'com.github.MZCretin:AutoUpdateProject:v2.0.4'
+    implementation 'me.weishu:free_reflection:1.2.0'
 }

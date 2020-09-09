@@ -14,8 +14,7 @@ import cn.cb.baselibrary.crash.cockroach.compat.ActivityKillerV24_V25;
 import cn.cb.baselibrary.crash.cockroach.compat.ActivityKillerV26;
 import cn.cb.baselibrary.crash.cockroach.compat.ActivityKillerV28;
 import cn.cb.baselibrary.crash.cockroach.compat.IActivityKiller;
-import cn.cb.baselibrary.crash.reflection.Reflection;
-//import me.weishu.reflection.Reflection;
+import me.weishu.reflection.Reflection;
 
 /**
  * Created by wanjian on 2017/2/14.
