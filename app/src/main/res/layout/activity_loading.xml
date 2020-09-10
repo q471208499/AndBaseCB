@@ -12,7 +12,7 @@
         android:id="@+id/loading_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show Loading 3 s"
+        android:text="show Loading 5 s"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tool_bar_view" />
 
@@ -28,8 +28,24 @@
         android:id="@+id/loading_btn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="show loading not ui thread 3 s"
+        android:text="show loading not ui thread 5 s"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_btn2" />
+
+    <Button
+        android:id="@+id/loading_btn4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show 'title' loading 5 s"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loading_btn3" />
+
+    <Button
+        android:id="@+id/loading_btn5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="show cancelable loading 5 s"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loading_btn4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

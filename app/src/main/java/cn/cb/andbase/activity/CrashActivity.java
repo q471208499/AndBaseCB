@@ -1,6 +1,7 @@
 package cn.cb.andbase.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class CrashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crash);
         initBarView();
-        list.add("AAA");
+        findViewById(R.id.crash_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.add("AAA");
+            }
+        });
     }
 }

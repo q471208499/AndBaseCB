@@ -11,7 +11,7 @@
     <string name="dialog_cancel">No</string>
 
     <string name="toast_not_installed">Not installed</string>
-    <string name="loading_txt">Loading...</string>
+    <string name="loading_txt">Loading</string>
 
     <string name="app_crash">The program is abnormal, please contact the administrator</string>
 </resources>
