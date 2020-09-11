@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.cretin.www.cretinautoupdatelibrary.interfaces.AppDownloadListener;
 import com.cretin.www.cretinautoupdatelibrary.utils.AppUpdateUtils;
+import com.cretin.www.cretinautoupdatelibrary.utils.AppUtils;
+import com.liulishuo.filedownloader.FileDownloader;
+
+import java.io.File;
 
 import cn.cb.baselibrary.net.okhttp3.OkHttpException;
 import cn.cb.baselibrary.net.okhttp3.RequestMode;
@@ -69,4 +73,11 @@ public class AppUpdateHelper {
             MyToast.show(failure.geteMsg());
         }
     };
+
+    public static void cleanUpdate() {
+        //删除任务中的缓存文件
+        FileDownloader.getImpl().clearAllTaskData();
+        //删除已经下载好的文件
+        AppUtils.delAllFile(new File(AppUtils.getAppRootPath()));
+    }
 }
