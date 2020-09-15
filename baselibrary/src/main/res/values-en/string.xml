@@ -14,4 +14,5 @@
     <string name="loading_txt">Loading</string>
 
     <string name="app_crash">The program is abnormal, please contact the administrator</string>
+    <string name="list_empty">Empty list</string>
 </resources>
