@@ -2,9 +2,9 @@ package cn.cb.baselibrary.fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,9 +17,16 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
+import cn.cb.baselibrary.widget.CBLoading;
+
 public class BaseFragment extends Fragment {
-    //private SweetAlertDialog mLoadingDialog;
-    private ProgressDialog mLoadingDialog;
+    private CBLoading mLoadingDialog;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mLoadingDialog = new CBLoading(getContext());
+    }
 
     @Override
     public void onResume() {
@@ -81,31 +88,22 @@ public class BaseFragment extends Fragment {
     }
 
     protected void showLoading() {
-        /* mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        mLoadingDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        mLoadingDialog.setTitleText("Loading");
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();*/
-        mLoadingDialog = new ProgressDialog(getContext());
-        //mLoadingDialog.setTitle();
-        mLoadingDialog.setCancelable(false);
-        mLoadingDialog.show();
+        mLoadingDialog.showLoading();
     }
 
-    protected void changeLoadingTitle(String title) {
-        if (mLoadingDialog.isShowing()) {
-            mLoadingDialog.setTitle(title);
-            mLoadingDialog.show();
-        }
+    public void showLoading(int countDownTimer) {
+        mLoadingDialog.showLoading(countDownTimer);
     }
 
-    protected void dismissLoading() {
-        if (mLoadingDialog.isShowing()) {
-            mLoadingDialog.dismiss();
-        }
+    public void showLoading(String title) {
+        mLoadingDialog.showLoading(title);
     }
 
-    protected void setLoadingCancelable(boolean flag) {
-        mLoadingDialog.setCancelable(flag);
+    public void showLoading(boolean cancelable) {
+        mLoadingDialog.showLoading(cancelable);
+    }
+
+    public void dismissLoading() {
+        mLoadingDialog.dismissLoading();
     }
 }
