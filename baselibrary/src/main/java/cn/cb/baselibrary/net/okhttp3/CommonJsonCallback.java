@@ -18,12 +18,18 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static cn.cb.baselibrary.provider.ABConstant.HTTP_JSON_ERROR;
+import static cn.cb.baselibrary.provider.ABConstant.HTTP_NETWORK_ERROR;
+import static cn.cb.baselibrary.provider.ABConstant.HTTP_OTHER_ERROR;
+import static cn.cb.baselibrary.provider.ABConstant.HTTP_TIMEOUT_ERROR;
+
 /**
  * 创建： PengJunShan
  * 描述：专门处理JSON数据的回调响应
  */
 
 public class CommonJsonCallback implements Callback {
+    private final String TAG = getClass().getSimpleName();
 
     /**
      * errorCode是根据接口返回的标识 实际根据自己接口返回为准
@@ -38,15 +44,6 @@ public class CommonJsonCallback implements Callback {
 
     protected final String NETWORK_MSG = "请求失败";
     protected final String JSON_MSG = "解析失败";
-
-    /**
-     * 自定义异常类型
-     */
-    protected final int NETWORK_ERROR = -1; //网络失败
-    protected final int JSON_ERROR = -2; //解析失败
-    protected final int OTHER_ERROR = -3; //未知错误
-    protected final int TIMEOUT_ERROR = -4; //请求超时
-
 
     private Handler mDeliveryHandler; //进行消息的转发
     private ResponseCallback mListener;
@@ -66,20 +63,20 @@ public class CommonJsonCallback implements Callback {
      */
     @Override
     public void onFailure(@NonNull Call call, @NonNull final IOException e) {
-        Log.e("TAG", "■■■■请求失败■■■■" + e.getMessage());
+        Log.e(TAG, "■■■■请求失败■■■■" + e.getMessage());
         mDeliveryHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (!OkHttp3Utils.isConnected(BaseApplication.getContext())) {
-                    mListener.onFailure(new OkHttpException(NETWORK_ERROR, "请检查网络"));
+                    mListener.onFailure(new OkHttpException(HTTP_NETWORK_ERROR, "请检查网络"));
                 } else if (e instanceof SocketTimeoutException) {
                     //判断超时异常
-                    mListener.onFailure(new OkHttpException(TIMEOUT_ERROR, "请求超时"));
+                    mListener.onFailure(new OkHttpException(HTTP_TIMEOUT_ERROR, "请求超时"));
                 } else if (e instanceof ConnectException) {
                     //判断超时异常
-                    mListener.onFailure(new OkHttpException(OTHER_ERROR, "请求服务器失败"));
+                    mListener.onFailure(new OkHttpException(HTTP_OTHER_ERROR, "请求服务器失败"));
                 } else {
-                    mListener.onFailure(new OkHttpException(NETWORK_ERROR, e.getMessage()));
+                    mListener.onFailure(new OkHttpException(HTTP_NETWORK_ERROR, e.getMessage()));
                 }
 
             }
@@ -108,7 +105,7 @@ public class CommonJsonCallback implements Callback {
      */
     private void handleResponse(Object responseObj) {
         if (responseObj == null && responseObj.toString().trim().equals("")) {
-            mListener.onFailure(new OkHttpException(NETWORK_ERROR, NETWORK_MSG));
+            mListener.onFailure(new OkHttpException(HTTP_NETWORK_ERROR, NETWORK_MSG));
             return;
         }
 
@@ -131,7 +128,7 @@ public class CommonJsonCallback implements Callback {
                 if (obj != null) {
                     mListener.onSuccess(obj);
                 } else {
-                    mListener.onFailure(new OkHttpException(JSON_ERROR, JSON_MSG));
+                    mListener.onFailure(new OkHttpException(HTTP_JSON_ERROR, JSON_MSG));
                 }
             }
             //} else { //将服务端返回的异常回调到应用层去处理
@@ -141,8 +138,8 @@ public class CommonJsonCallback implements Callback {
             //}
         } catch (Exception e) {
             e.printStackTrace();
-            mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
-            Log.e("TAG", "■■■■onResponse处理失败=■■■■" + e.getMessage());
+            mListener.onFailure(new OkHttpException(HTTP_OTHER_ERROR, e.getMessage()));
+            Log.e(TAG, "■■■■onResponse处理失败=■■■■" + e.getMessage());
         }
     }
 
