@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -42,7 +43,9 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void hideInput() {
         InputMethodManager manager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        IBinder windowToken = this.getCurrentFocus().getWindowToken();
+        if (windowToken == null) return;
+        manager.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     protected void initBarView() {

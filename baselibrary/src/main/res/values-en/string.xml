@@ -15,4 +15,7 @@
 
     <string name="app_crash">The program is abnormal, please contact the administrator</string>
     <string name="list_empty">Empty list</string>
+    <string name="net_err">The network is abnormal, please check the network</string>
+    <string name="net_timeout">Request timed out</string>
+    <string name="net_fail">Request server failed</string>
 </resources>
