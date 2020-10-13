@@ -15,6 +15,7 @@ public class CBLoading extends Handler {
     private final int DIALOG_SHOW_TITLE = 1130;
     private final int DIALOG_SHOW_CANCELABLE = 1131;
     private final int DIALOG_COUNT_DOWN_TIMER = 1132;
+    private final int DIALOG_COUNT_DOWN_TIMER_TITLE = 1133;
 
     private String suffix = "";
     private int countDownTimers = 0;
@@ -44,7 +45,15 @@ public class CBLoading extends Handler {
     public void showLoading(int countDownTimer) {
         Message message = new Message();
         message.what = DIALOG_COUNT_DOWN_TIMER;
-        message.obj = countDownTimer;
+        message.arg1 = countDownTimer;
+        handleMessage(message);
+    }
+
+    public void showLoading(String title, int countDownTimer) {
+        Message message = new Message();
+        message.what = DIALOG_COUNT_DOWN_TIMER_TITLE;
+        message.obj = title;
+        message.arg1 = countDownTimer;
         handleMessage(message);
     }
 
@@ -73,24 +82,36 @@ public class CBLoading extends Handler {
         } else if (msg.what == DIALOG_SHOW_CANCELABLE) {
             show(true);
         } else if (msg.what == DIALOG_COUNT_DOWN_TIMER) {
-            show((Integer) msg.obj);
+            show(msg.arg1);
+        } else if (msg.what == DIALOG_COUNT_DOWN_TIMER_TITLE) {
+            String msgStr = msg.obj.toString();
+            show(msg.arg1, msgStr);
         }
     }
 
     private void show(int countDownTimer) {
+        show(countDownTimer, null);
+    }
+
+    private void show(int countDownTimer, final String title) {
         countDownTimers = countDownTimer;
         if (countDownTimers == 0) {
             dismiss();
             return;
         }
-        show(countDownTimer + " s", false);
+        String titleShow = title == null ? countDownTimer + " s" : title + " " + countDownTimer + " s";
+        show(titleShow, false);
         postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (mLoadingDialog.isShowing()) {
                     countDownTimers--;
-                    show(countDownTimers + " s", false);
-                    show(countDownTimers);
+                    //show(countDownTimers + " s", false);
+                    //show(countDownTimers);
+
+                    String titleShow = title == null ? countDownTimers + " s" : title + " " + countDownTimers + " s";
+                    show(titleShow, false);
+                    show(countDownTimers, title);
                 }
             }
         }, 1000);

@@ -20,6 +20,7 @@ public class LoadingActivity extends BaseActivity {
         findViewById(R.id.loading_btn3).setOnClickListener(clickListener);
         findViewById(R.id.loading_btn4).setOnClickListener(clickListener);
         findViewById(R.id.loading_btn5).setOnClickListener(clickListener);
+        findViewById(R.id.loading_btn6).setOnClickListener(clickListener);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -60,6 +61,8 @@ public class LoadingActivity extends BaseActivity {
                         dismissLoading();
                     }
                 }, 5000);
+            } else if (v.getId() == R.id.loading_btn6) {
+                showLoading(10, "搜索中");
             }
         }
     };

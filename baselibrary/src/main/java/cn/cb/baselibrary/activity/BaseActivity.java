@@ -123,6 +123,10 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog.showLoading(countDownTimer);
     }
 
+    public void showLoading(int countDownTimer, String title) {
+        mLoadingDialog.showLoading(title, countDownTimer);
+    }
+
     public void showLoading(String title) {
         mLoadingDialog.showLoading(title);
     }
