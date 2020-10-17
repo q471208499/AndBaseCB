@@ -5,13 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -35,9 +36,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         mLoadingDialog = new CBLoading(this);
     }
 
