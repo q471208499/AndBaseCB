@@ -15,7 +15,8 @@ public class CBLoading extends Handler {
     private final int DIALOG_SHOW_TITLE = 1130;
     private final int DIALOG_SHOW_CANCELABLE = 1131;
     private final int DIALOG_COUNT_DOWN_TIMER = 1132;
-    private final int DIALOG_COUNT_DOWN_TIMER_TITLE = 1133;
+    private final int DIALOG_COUNT_DOWN_TIMER_CANCELABLE = 1133;
+    private final int DIALOG_COUNT_DOWN_TIMER_TITLE = 1134;
 
     private String suffix = "";
     private int countDownTimers = 0;
@@ -63,6 +64,14 @@ public class CBLoading extends Handler {
         handleMessage(message);
     }
 
+    public void showLoading(boolean cancelable, int countDownTimer) {
+        Message message = new Message();
+        message.what = DIALOG_COUNT_DOWN_TIMER_CANCELABLE;
+        message.arg1 = countDownTimer;
+        message.obj = cancelable;
+        handleMessage(message);
+    }
+
     public void dismissLoading() {
         Message message = new Message();
         message.what = DIALOG_DISMISS;
@@ -86,6 +95,8 @@ public class CBLoading extends Handler {
         } else if (msg.what == DIALOG_COUNT_DOWN_TIMER_TITLE) {
             String msgStr = msg.obj.toString();
             show(msg.arg1, msgStr);
+        } else if (msg.what == DIALOG_COUNT_DOWN_TIMER_CANCELABLE) {
+            show((Boolean) msg.obj, msg.arg1);
         }
     }
 
@@ -94,13 +105,17 @@ public class CBLoading extends Handler {
     }
 
     private void show(int countDownTimer, final String title) {
+        show(countDownTimer, title, false);
+    }
+
+    private void show(int countDownTimer, final String title, final boolean cancelable) {
         countDownTimers = countDownTimer;
         if (countDownTimers == 0) {
             dismiss();
             return;
         }
         String titleShow = title == null ? countDownTimer + " s" : title + " " + countDownTimer + " s";
-        show(titleShow, false);
+        show(titleShow, cancelable);
         postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -110,8 +125,8 @@ public class CBLoading extends Handler {
                     //show(countDownTimers);
 
                     String titleShow = title == null ? countDownTimers + " s" : title + " " + countDownTimers + " s";
-                    show(titleShow, false);
-                    show(countDownTimers, title);
+                    show(titleShow, cancelable);
+                    show(countDownTimers, title, cancelable);
                 }
             }
         }, 1000);
@@ -123,6 +138,10 @@ public class CBLoading extends Handler {
 
     private void show(boolean cancelable) {
         show(null, cancelable);
+    }
+
+    private void show(boolean cancelable, int countDownTimer) {
+        show(countDownTimer, null, cancelable);
     }
 
     private void show(String msg) {

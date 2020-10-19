@@ -55,4 +55,12 @@
         android:text="Count Down Timer 10 s and title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loading_btn5" />
+
+    <Button
+        android:id="@+id/loading_btn7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Count Down Timer 10 s and cancelable"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/loading_btn6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

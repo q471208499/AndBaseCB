@@ -110,4 +110,8 @@ public class BaseFragment extends Fragment {
     public void dismissLoading() {
         mLoadingDialog.dismissLoading();
     }
+
+    public void showLoading(boolean cancelable, int countDownTimer) {
+        mLoadingDialog.showLoading(cancelable, countDownTimer);
+    }
 }

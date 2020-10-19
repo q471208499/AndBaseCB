@@ -138,6 +138,10 @@ public class BaseActivity extends AppCompatActivity {
         mLoadingDialog.showLoading(title, countDownTimer);
     }
 
+    public void showLoading(boolean cancelable, int countDownTimer) {
+        mLoadingDialog.showLoading(cancelable, countDownTimer);
+    }
+
     public void showLoading(String title) {
         mLoadingDialog.showLoading(title);
     }
