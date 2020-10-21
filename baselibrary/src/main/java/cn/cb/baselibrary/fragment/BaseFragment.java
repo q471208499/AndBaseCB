@@ -1,21 +1,15 @@
 package cn.cb.baselibrary.fragment;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Outline;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.DatePicker;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
-import java.util.Calendar;
 
 import cn.cb.baselibrary.widget.CBLoading;
 
@@ -46,47 +40,6 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    protected void showDatePicker(@Nullable final View view) {
-        datePicker(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker dialog, int year, int month, int dayOfMonth) {
-                hideInput();
-                String dateStr = year + "-" + (month + 1) + "-" + dayOfMonth;
-                if (view instanceof TextView) {
-                    ((TextView) view).setText(dateStr);
-                }
-            }
-        });
-    }
-
-    protected void showDialog(String title, String msg, String pName, String nName, DialogInterface.OnClickListener pListener, DialogInterface.OnClickListener nListener) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        if (!TextUtils.isEmpty(title))
-            dialog.setTitle(title);
-        if (!TextUtils.isEmpty(msg))
-            dialog.setMessage(msg);
-        if (!TextUtils.isEmpty(pName))
-            dialog.setPositiveButton(pName, pListener);
-        if (!TextUtils.isEmpty(nName))
-            dialog.setNegativeButton(nName, nListener);
-        dialog.show();
-    }
-
-    protected void datePicker(@Nullable DatePickerDialog.OnDateSetListener listener) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog dialog = new DatePickerDialog(getContext(), listener, year, month, day);
-        dialog.show();
-    }
-
-    protected void goSettings() {
-        //Intent intent = new Intent(getActivity(), SettingsActivity.class);
-        //intent.putExtra(Intent.EXTRA_TITLE, "设置");
-        //startActivity(intent);
-    }
-
     protected void showLoading() {
         mLoadingDialog.showLoading();
     }
@@ -113,5 +66,20 @@ public class BaseFragment extends Fragment {
 
     public void showLoading(boolean cancelable, int countDownTimer) {
         mLoadingDialog.showLoading(cancelable, countDownTimer);
+    }
+
+    /**
+     * 裁剪 View 圆角
+     *
+     * @param view
+     */
+    protected void setOutline(View view) {
+        view.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20);
+            }
+        });
+        view.setClipToOutline(true);
     }
 }

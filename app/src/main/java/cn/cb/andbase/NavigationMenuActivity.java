@@ -12,6 +12,7 @@ import java.util.List;
 
 import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.LoadingActivity;
+import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
 import cn.cb.andbase.activity.RecyclerActivity;
 import cn.cb.andbase.activity.TestBrowserActivity;
@@ -60,6 +61,9 @@ public class NavigationMenuActivity extends BaseActivity {
                     cls = LoadingActivity.class;
                 } else if (index == 6) {
                     cls = CrashActivity.class;
+                } else if (index == 7) {
+                    cls = LocalActivity.class;
+                    return;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -77,7 +81,8 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("Web");
         result.add("Main");
         result.add("Loading");
-        result.add("CrashActivity");
+        result.add("Crash Activity");
+        result.add("中文 & English");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }

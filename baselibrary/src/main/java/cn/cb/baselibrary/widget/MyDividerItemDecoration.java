@@ -48,9 +48,9 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         RecyclerView.LayoutManager manager = parent.getLayoutManager();
         int left = 0, top = 0, right = 0, bottom = 0, spanCount = 0;
         if (manager instanceof GridLayoutManager) {
-            spanCount = ((GridLayoutManager)manager).getSpanCount();
+            spanCount = ((GridLayoutManager) manager).getSpanCount();
         } else if (manager instanceof LinearLayoutManager) {
-            int orientation = ((LinearLayoutManager)manager).getOrientation();
+            int orientation = ((LinearLayoutManager) manager).getOrientation();
             spanCount = orientation == LinearLayout.VERTICAL ? ONE_SPAN_COUNT : NO_SPAN_COUNT;
         } else {
 

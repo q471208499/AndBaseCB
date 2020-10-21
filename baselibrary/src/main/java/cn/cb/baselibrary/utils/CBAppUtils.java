@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+
+import java.util.Locale;
 
 import cn.cb.baselibrary.R;
 import es.dmoral.toasty.MyToast;
@@ -36,4 +39,18 @@ public class CBAppUtils {
         return packageInfo != null;
     }
 
+    public static void setLocalLanguageZh(Context context) {
+        setLocalLanguage(context, Locale.SIMPLIFIED_CHINESE.getLanguage());
+    }
+
+    public static void setLocalLanguageEn(Context context) {
+        setLocalLanguage(context, Locale.ENGLISH.getLanguage());
+    }
+
+    public static void setLocalLanguage(Context context, String language) {
+        Configuration configuration = new Configuration();
+        Locale locale = new Locale(language);
+        configuration.setLocale(locale);
+        context.createConfigurationContext(configuration);
+    }
 }

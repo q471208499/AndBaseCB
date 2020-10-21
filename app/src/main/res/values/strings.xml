@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">And Base CB</string>
+    <string name="local_text">这是一段中英切换文字示例。</string>
 </resources>

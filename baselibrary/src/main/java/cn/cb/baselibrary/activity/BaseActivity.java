@@ -3,6 +3,7 @@ package cn.cb.baselibrary.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -166,5 +168,20 @@ public class BaseActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(R.string.dialog_cancel, null);
         builder.show();
+    }
+
+    /**
+     * 裁剪 View 圆角
+     *
+     * @param view
+     */
+    protected void setOutline(View view) {
+        view.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20);
+            }
+        });
+        view.setClipToOutline(true);
     }
 }
