@@ -3,6 +3,7 @@ package cn.cb.baselibrary.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -157,17 +158,19 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void showFinishDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(BaseActivity.this);
-        builder.setTitle(R.string.dialog_prompt);
-        builder.setMessage(R.string.dialog_exit_software);
-        builder.setPositiveButton(R.string.dialog_exit, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        builder.setNegativeButton(R.string.dialog_cancel, null);
-        builder.show();
+        AlertDialog builder = new AlertDialog.Builder(BaseActivity.this)
+                .setTitle(R.string.dialog_prompt)
+                .setMessage(R.string.dialog_exit_software)
+                .setPositiveButton(R.string.dialog_exit, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_cancel, null)
+                .show();
+        builder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        builder.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
     }
 
     /**

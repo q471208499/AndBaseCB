@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.cb.andbase.activity.CrashActivity;
+import cn.cb.andbase.activity.DialogActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
@@ -64,6 +65,8 @@ public class NavigationMenuActivity extends BaseActivity {
                 } else if (index == 7) {
                     cls = LocalActivity.class;
                     return;
+                } else if (index == 8) {
+                    cls = DialogActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -83,6 +86,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("Loading");
         result.add("Crash Activity");
         result.add("中文 & English");
+        result.add("Dialog");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }
