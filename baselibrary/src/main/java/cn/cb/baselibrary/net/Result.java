@@ -61,7 +61,13 @@ public class Result {
     }
 
     public Object getData() {
-        return data;
+        if (data instanceof Map) {
+            return new JSONObject((Map) data);
+        } else if (data instanceof List){
+            return new JSONArray((List) data);
+        } else {
+            return data;
+        }
     }
 
     public void setData(Object data) {
