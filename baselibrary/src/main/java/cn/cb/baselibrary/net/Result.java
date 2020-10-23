@@ -1,7 +1,11 @@
 package cn.cb.baselibrary.net;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class Result {
     /**
@@ -61,7 +65,13 @@ public class Result {
     }
 
     public void setData(Object data) {
-        this.data = data;
+        if (data instanceof Map) {
+            this.data = new JSONObject((Map) data);
+        } else if (data instanceof List){
+            this.data = new JSONArray((List) data);
+        } else {
+            this.data = data;
+        }
     }
 
     public boolean isSuccess() {

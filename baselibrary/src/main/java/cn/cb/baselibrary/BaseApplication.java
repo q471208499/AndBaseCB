@@ -29,6 +29,7 @@ public class BaseApplication extends CrashApplication {
     public static Bitmap APP_BITMAP;
     public static File DATABASE_PATH;
     public static String DB_NAME = "app-db";
+    public static int DB_VERSION = 1;
 
     private static Context mContext;
 
@@ -48,8 +49,12 @@ public class BaseApplication extends CrashApplication {
         MyToast.init(this, true, true);
         mContext = getApplicationContext();
         initAutoUpdate();
+        //DemoSqlManager.createInstance(this, DB_NAME, DB_VERSION);
     }
 
+    /**
+     * 自动更新
+     */
     public void initAutoUpdate() {
         //如果你想使用okhttp作为下载的载体，那么你需要自己依赖okhttp，更新库不强制依赖okhttp！可以使用如下代码创建一个OkHttpClient 并在UpdateConfig中配置setCustomDownloadConnectionCreator start
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
