@@ -1,8 +1,7 @@
 package cn.cb.baselibrary.net;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public class Result {
     public Object getData() {
         if (data instanceof Map) {
             return new JSONObject((Map) data);
-        } else if (data instanceof List){
+        } else if (data instanceof List) {
             return new JSONArray((List) data);
         } else {
             return data;
@@ -73,7 +72,7 @@ public class Result {
     public void setData(Object data) {
         if (data instanceof Map) {
             this.data = new JSONObject((Map) data);
-        } else if (data instanceof List){
+        } else if (data instanceof List) {
             this.data = new JSONArray((List) data);
         } else {
             this.data = data;
@@ -133,14 +132,10 @@ public class Result {
 
     public JSONObject toJson() {
         JSONObject object = new JSONObject();
-        try {
-            object.put(resultMsgKey, message);
-            object.put(resultCodeKey, code);
-            object.put(resultDataKey, data);
-            object.put(resultSuccessKey, success);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        object.put(resultMsgKey, message);
+        object.put(resultCodeKey, code);
+        object.put(resultDataKey, data);
+        object.put(resultSuccessKey, success);
         return object;
     }
 
