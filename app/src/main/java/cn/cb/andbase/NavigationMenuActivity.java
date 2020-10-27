@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.cb.andbase.activity.BarBtnActivity;
 import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
 import cn.cb.andbase.activity.LoadingActivity;
@@ -67,6 +68,8 @@ public class NavigationMenuActivity extends BaseActivity {
                     return;
                 } else if (index == 8) {
                     cls = DialogActivity.class;
+                } else if (index == 9) {
+                    cls = BarBtnActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -87,6 +90,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("Crash Activity");
         result.add("中文 & English");
         result.add("Dialog");
+        result.add("标题栏按钮");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }

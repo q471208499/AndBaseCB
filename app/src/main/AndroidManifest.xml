@@ -11,7 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeBase">
         <activity
-            android:name=".activity.DialogActivity"/>
+            android:name=".activity.BarBtnActivity"
+            android:theme="@style/AppThemeBase.NoActionBar" />
+        <activity
+            android:name=".activity.DialogActivity"
+            android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
             android:name=".activity.LocalActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
