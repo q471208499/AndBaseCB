@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeBase">
+        <activity android:name=".activity.RecyclerViewMaxItemActivity"
+            android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
             android:name=".activity.BarBtnActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />

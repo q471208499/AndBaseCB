@@ -172,19 +172,4 @@ public class BaseActivity extends AppCompatActivity {
         builder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
         builder.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
     }
-
-    /**
-     * 裁剪 View 圆角
-     *
-     * @param view
-     */
-    protected void setOutline(View view) {
-        view.setOutlineProvider(new ViewOutlineProvider() {
-            @Override
-            public void getOutline(View view, Outline outline) {
-                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20);
-            }
-        });
-        view.setClipToOutline(true);
-    }
 }

@@ -17,6 +17,7 @@ import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
 import cn.cb.andbase.activity.RecyclerActivity;
+import cn.cb.andbase.activity.RecyclerViewMaxItemActivity;
 import cn.cb.andbase.activity.TestBrowserActivity;
 import cn.cb.andbase.activity.UpdateActivity;
 import cn.cb.andbase.adapter.MyMenuAdapter;
@@ -70,6 +71,8 @@ public class NavigationMenuActivity extends BaseActivity {
                     cls = DialogActivity.class;
                 } else if (index == 9) {
                     cls = BarBtnActivity.class;
+                } else if (index == 10) {
+                    cls = RecyclerViewMaxItemActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -91,6 +94,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("中文 & English");
         result.add("Dialog");
         result.add("标题栏按钮");
+        result.add("recycler max item");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }
