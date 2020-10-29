@@ -31,6 +31,7 @@ public class SplashBaseActivity extends BaseActivity {
                 return;
             }
             Intent intent = new Intent(SplashBaseActivity.this, cls);
+            intent.putExtra(Intent.ACTION_ATTACH_DATA, true);
             //intent.putExtra(Intent.EXTRA_TITLE, "首次启动信息录入");
             startActivity(intent);
             finish();
