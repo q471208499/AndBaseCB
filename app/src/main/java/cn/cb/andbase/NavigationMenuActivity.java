@@ -23,6 +23,7 @@ import cn.cb.andbase.activity.UpdateActivity;
 import cn.cb.andbase.adapter.MyMenuAdapter;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.activity.SplashBaseActivity;
+import cn.cb.baselibrary.utils.ViewUtils;
 import cn.cb.baselibrary.widget.MyDividerItemDecoration;
 
 public class NavigationMenuActivity extends BaseActivity {
@@ -42,6 +43,7 @@ public class NavigationMenuActivity extends BaseActivity {
         menuAdapter = new MyMenuAdapter(this, list, clickListener);
         recyclerView.addItemDecoration(new MyDividerItemDecoration());
         recyclerView.setAdapter(menuAdapter);
+        ViewUtils.setOutline(recyclerView);
     }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {

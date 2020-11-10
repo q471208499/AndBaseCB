@@ -245,6 +245,11 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         return this;
     }
 
+    /**
+     * 与ViewUtils.setOutline（裁剪圆角冲突，无法同时满足两个）
+     * @param drawOuterBorder
+     * @return
+     */
     public MyDividerItemDecoration setDrawOuterBorder(boolean drawOuterBorder) {
         this.drawOuterBorder = drawOuterBorder;
         return this;
