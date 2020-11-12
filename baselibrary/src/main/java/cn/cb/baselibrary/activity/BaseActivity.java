@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.os.Build;
@@ -12,10 +11,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewOutlineProvider;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -23,6 +22,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.yhao.floatwindow.FloatWindow;
+import com.yhao.floatwindow.PermissionListener;
+import com.yhao.floatwindow.Screen;
 
 import java.lang.reflect.Method;
 
@@ -33,6 +36,7 @@ import es.dmoral.toasty.MyToast;
 public class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     private CBLoading mLoadingDialog;
+    private final String TAG = getClass().getSimpleName();
 
     protected final String INTENT_EXTRA_RESULT_STR = "INTENT_EXTRA_RESULT_STR";
 
@@ -76,6 +80,41 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 设置默认全服浮动控件：不可拖动，不可点击
+     */
+    protected void setFloatWindowViewDefault(View view) {
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "onSuccess: ");
+            }
+
+            @Override
+            public void onFail() {
+                Log.i(TAG, "onFail: ");
+            }
+        };
+        if (FloatWindow.get() == null || !FloatWindow.get().isShowing())
+            FloatWindow
+                    .with(getApplicationContext())
+                    .setView(view)
+                    .setWidth(view.getLayoutParams().width) //设置悬浮控件宽高
+                    .setHeight(view.getLayoutParams().height)
+                    .setX(Screen.width)
+                    .setY(Screen.height, 0.3f)
+                    //.setMoveType(MoveType.slide,100,-100)
+                    //.setMoveStyle(500, new BounceInterpolator())
+                    //.setFilter(true, BaseActivity.class)
+                    //.setViewStateListener(mViewStateListener)
+                    .setPermissionListener(permissionListener)
+                    .setDesktopShow(true)
+                    .build();
+    }
+
+    /**
+     * 设置bar标题居中
+     */
     protected void setBarTitleTextCentre() {
         //获取到屏幕的宽度
         Point point = new Point();

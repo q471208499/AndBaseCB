@@ -13,6 +13,7 @@ import java.util.List;
 import cn.cb.andbase.activity.BarBtnActivity;
 import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
+import cn.cb.andbase.activity.FloatWindowActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
@@ -75,6 +76,8 @@ public class NavigationMenuActivity extends BaseActivity {
                     cls = BarBtnActivity.class;
                 } else if (index == 10) {
                     cls = RecyclerViewMaxItemActivity.class;
+                } else if (index == 11) {
+                    cls = FloatWindowActivity.class;
                 }
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
@@ -97,6 +100,7 @@ public class NavigationMenuActivity extends BaseActivity {
         result.add("Dialog");
         result.add("标题栏按钮");
         result.add("recycler max item");
+        result.add("app全局悬浮");
         list.addAll(result);
         menuAdapter.notifyDataSetChanged();
     }
