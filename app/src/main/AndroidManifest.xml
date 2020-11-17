@@ -53,6 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data android:name="MTA_CHANNEL"
+            android:value="${MTA_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

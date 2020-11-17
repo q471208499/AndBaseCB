@@ -5,6 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
+        flavorDimensions "versionCode"
         applicationId "cn.cb.andbase"
         minSdkVersion 21
         targetSdkVersion 29
@@ -16,8 +17,37 @@ android {
 
     buildTypes {
         release {
+            //移除无用的资源文件 shrinkResources = minifyEnabled
+            //shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        demo1 {
+            applicationId "cn.cb.demo1"
+            //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
+            manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo1",
+                                    app_name         : "@string/app_name"]
+            //包名.BuildConfig.java 文件变量
+            buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
+        }
+        demo2 {
+            applicationId "cn.cb.demo2"
+            //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
+            manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo2",
+                                    app_name         : "@string/app_name"]
+            //包名.BuildConfig.java 文件变量
+            buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
+        }
+        default1 {
+            applicationId "cn.cb.default1"
+            //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
+            manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo2",
+                                    app_name         : "@string/app_name"]
+            //包名.BuildConfig.java 文件变量
+            buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
         }
     }
 
@@ -40,4 +70,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.1'
 
     implementation 'com.github.hss01248:Toasty:2.0.6'
+    demo1Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo1 依赖
+    demo2Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo2 依赖
 }
