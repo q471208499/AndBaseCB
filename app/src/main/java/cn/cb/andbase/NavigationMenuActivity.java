@@ -8,7 +8,9 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.cb.andbase.activity.BarBtnActivity;
 import cn.cb.andbase.activity.CrashActivity;
@@ -28,20 +30,17 @@ import cn.cb.baselibrary.utils.ViewUtils;
 import cn.cb.baselibrary.widget.MyDividerItemDecoration;
 
 public class NavigationMenuActivity extends BaseActivity {
-    private List<String> list = new ArrayList<>();
-    private MyMenuAdapter menuAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_menu);
         bindView();
-        setMenuList();
     }
 
     private void bindView() {
         RecyclerView recyclerView = findViewById(R.id.nav_menu_recycler);
-        menuAdapter = new MyMenuAdapter(this, list, clickListener);
+        MyMenuAdapter menuAdapter = new MyMenuAdapter(this, initData(), clickListener);
         recyclerView.addItemDecoration(new MyDividerItemDecoration());
         recyclerView.setAdapter(menuAdapter);
         ViewUtils.setOutline(recyclerView);
@@ -51,59 +50,82 @@ public class NavigationMenuActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.item_btn) {
-                Class cls = null;
-                int index = (int) v.getTag();
-                if (index == 0) {
-                    cls = RecyclerActivity.class;
-                } else if (index == 1) {
-                    cls = SplashBaseActivity.class;
-                } else if (index == 2) {
-                    cls = UpdateActivity.class;
-                } else if (index == 3) {
-                    cls = TestBrowserActivity.class;
-                } else if (index == 4) {
-                    cls = MainActivity.class;
-                } else if (index == 5) {
-                    cls = LoadingActivity.class;
-                } else if (index == 6) {
-                    cls = CrashActivity.class;
-                } else if (index == 7) {
-                    cls = LocalActivity.class;
-                    return;
-                } else if (index == 8) {
-                    cls = DialogActivity.class;
-                } else if (index == 9) {
-                    cls = BarBtnActivity.class;
-                } else if (index == 10) {
-                    cls = RecyclerViewMaxItemActivity.class;
-                } else if (index == 11) {
-                    cls = FloatWindowActivity.class;
-                }
+                Map<String, Object> map = (Map<String, Object>) v.getTag();
+                Class cls = (Class) map.get("cls");
+                String title = (String) map.get("name");
                 Intent intent = new Intent();
                 intent.setClass(NavigationMenuActivity.this, cls);
-                intent.putExtra(Intent.EXTRA_TITLE, list.get(index));
+                intent.putExtra(Intent.EXTRA_TITLE, title);
                 startActivity(intent);
             }
         }
     };
 
-    private void setMenuList() {
-        List<String> result = new ArrayList<>();
-        result.add("万能recycler边框");
-        result.add("splash");
-        result.add("update");
-        result.add("Web");
-        result.add("Main");
-        result.add("Loading");
-        result.add("Crash Activity");
-        result.add("中文 & English");
-        result.add("Dialog");
-        result.add("标题栏按钮");
-        result.add("recycler max item");
-        result.add("app全局悬浮");
-        list.addAll(result);
-        menuAdapter.notifyDataSetChanged();
+    private List<Map<String, Object>> initData() {
+        List<Map<String, Object>> maps = new ArrayList<>();
+        Map<String, Object> map0 = new HashMap<>();
+        map0.put("name", "万能recycler边框");
+        map0.put("cls", RecyclerActivity.class);
+
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("name", "splash");
+        map1.put("cls", SplashBaseActivity.class);
+
+        Map<String, Object> map2 = new HashMap<>();
+        map2.put("name", "update");
+        map2.put("cls", UpdateActivity.class);
+
+        Map<String, Object> map3 = new HashMap<>();
+        map3.put("name", "Web");
+        map3.put("cls", TestBrowserActivity.class);
+
+        Map<String, Object> map4 = new HashMap<>();
+        map4.put("name", "Main");
+        map4.put("cls", MainActivity.class);
+
+        Map<String, Object> map5 = new HashMap<>();
+        map5.put("name", "Loading");
+        map5.put("cls", LoadingActivity.class);
+
+        Map<String, Object> map6 = new HashMap<>();
+        map6.put("name", "Crash Activity");
+        map6.put("cls", CrashActivity.class);
+
+        Map<String, Object> map7 = new HashMap<>();
+        map7.put("name", "中文 & English");
+        map7.put("cls", LocalActivity.class);
+
+        Map<String, Object> map8 = new HashMap<>();
+        map8.put("name", "Dialog");
+        map8.put("cls", DialogActivity.class);
+
+        Map<String, Object> map9 = new HashMap<>();
+        map9.put("name", "标题栏按钮");
+        map9.put("cls", BarBtnActivity.class);
+
+        Map<String, Object> map10 = new HashMap<>();
+        map10.put("name", "recycler max item");
+        map10.put("cls", RecyclerViewMaxItemActivity.class);
+
+        Map<String, Object> map11 = new HashMap<>();
+        map11.put("name", "app全局悬浮");
+        map11.put("cls", FloatWindowActivity.class);
+
+        maps.add(map0);
+        maps.add(map1);
+        maps.add(map2);
+        maps.add(map3);
+        maps.add(map4);
+        maps.add(map5);
+        maps.add(map6);
+        maps.add(map7);
+        maps.add(map8);
+        maps.add(map9);
+        maps.add(map10);
+        maps.add(map11);
+        return maps;
     }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -10,16 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.cb.andbase.R;
 
 public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MenuVewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<Map<String, Object>> mList;
     private View.OnClickListener mListener;
 
-    public MyMenuAdapter(Context context, List<String> list, View.OnClickListener listener) {
+    public MyMenuAdapter(Context context, List<Map<String, Object>> list, View.OnClickListener listener) {
         mContext = context;
         mList = list;
         mListener = listener;
@@ -34,8 +35,9 @@ public class MyMenuAdapter extends RecyclerView.Adapter<MyMenuAdapter.MenuVewHol
 
     @Override
     public void onBindViewHolder(@NonNull MenuVewHolder holder, int position) {
-        holder.button.setTag(position);
-        holder.button.setText(mList.get(position));
+        Map<String, Object> map = mList.get(position);
+        holder.button.setTag(map);
+        holder.button.setText((String) map.get("name"));
         holder.button.setOnClickListener(mListener);
     }
 
