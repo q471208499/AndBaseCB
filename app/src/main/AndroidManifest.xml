@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeBase">
         <activity
+            android:name=".activity.DrawerActivity"
+            android:theme="@style/AppThemeBase.NoActionBar"/>
+        <activity
             android:name=".activity.FloatWindowActivity"
             android:theme="@style/AppThemeBase.NoActionBar" />
         <activity
@@ -54,7 +57,8 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="MTA_CHANNEL"
+        <meta-data
+            android:name="MTA_CHANNEL"
             android:value="${MTA_CHANNEL_VALUE}" />
     </application>
 

@@ -15,6 +15,7 @@ import java.util.Map;
 import cn.cb.andbase.activity.BarBtnActivity;
 import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
+import cn.cb.andbase.activity.DrawerActivity;
 import cn.cb.andbase.activity.FloatWindowActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
@@ -111,6 +112,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map11.put("name", "app全局悬浮");
         map11.put("cls", FloatWindowActivity.class);
 
+        Map<String, Object> map12 = new HashMap<>();
+        map12.put("name", "抽屉");
+        map12.put("cls", DrawerActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
@@ -123,6 +128,7 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map9);
         maps.add(map10);
         maps.add(map11);
+        maps.add(map12);
         return maps;
     }
 
