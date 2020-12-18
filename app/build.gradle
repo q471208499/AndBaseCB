@@ -6,7 +6,6 @@ android {
 
     defaultConfig {
         flavorDimensions "versionCode"
-        applicationId "cn.cb.andbase"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -26,7 +25,7 @@ android {
 
     productFlavors {
         demo1 {
-            applicationId "cn.cb.demo1"
+            applicationId "cn.cb.andbase.demo1"
             //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
             manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo1",
                                     app_name         : "@string/app_name"]
@@ -34,7 +33,7 @@ android {
             buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
         }
         demo2 {
-            applicationId "cn.cb.demo2"
+            applicationId "cn.cb.andbase.demo2"
             //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
             manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo2",
                                     app_name         : "@string/app_name"]
@@ -42,7 +41,7 @@ android {
             buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
         }
         default1 {
-            applicationId "cn.cb.default1"
+            applicationId "cn.cb.andbase.default1"
             //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
             manifestPlaceholders = [MTA_CHANNEL_VALUE: "demo2",
                                     app_name         : "@string/app_name"]

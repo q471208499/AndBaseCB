@@ -116,6 +116,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map12.put("name", "抽屉");
         map12.put("cls", DrawerActivity.class);
 
+        Map<String, Object> map13 = new HashMap<>();
+        map13.put("name", "网络请求");
+        map13.put("cls", DrawerActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
