@@ -60,7 +60,6 @@ public class BaseActivity extends AppCompatActivity {
     private void hideInput(IBinder windowToken) {
         if (windowToken == null) return;
         InputMethodManager manager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (getCurrentFocus() == null) return;
         manager.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
