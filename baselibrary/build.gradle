@@ -45,7 +45,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.2'
     implementation 'com.alibaba:fastjson:1.1.72.android'
 
-    implementation 'com.github.q471208499:AutoUpdateProject:3.0.2'
+    implementation 'com.github.q471208499:AutoUpdateProject:3.0.4'
     implementation 'me.weishu:free_reflection:1.2.0'
     implementation 'com.github.q471208499:FloatWindow:1.1.0'
 }
