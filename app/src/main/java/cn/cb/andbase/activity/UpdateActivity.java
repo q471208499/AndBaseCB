@@ -8,7 +8,8 @@ import cn.cb.baselibrary.utils.AppUpdateHelper;
 
 public class UpdateActivity extends BaseActivity {
     private final String TAG = getClass().getSimpleName();
-    protected String updateInfoUrl = "http://www.xinchuang-link.cn:8321/appUpdate/cn.hk.easyscribebao/update.txt";
+    //protected String updateInfoUrl = "http://www.xinchuang-link.cn:8321/appUpdate/cn.hk.easyscribebao/update.txt";
+    protected String updateInfoUrl = "http://121.15.209.245:9002/appUpdate/cn.hk.btctrlreading/update.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,6 +22,10 @@ public class BarBtnActivity extends BaseActivity {
         MenuItem menuItem = menu.add(Menu.NONE, Menu.NONE, Menu.FIRST, "更新");
         //menuItem.setIcon(R.mipmap.ic_search); 使用图标
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        /*MenuItem menuItem2 = menu.add(Menu.NONE, Menu.NONE, Menu.FIRST, "搜索");
+        menuItem2.setIcon(android.R.drawable.ic_menu_search);
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);*/
         return super.onCreateOptionsMenu(menu);
     }
 
