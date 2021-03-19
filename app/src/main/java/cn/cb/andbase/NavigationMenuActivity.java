@@ -23,6 +23,7 @@ import cn.cb.andbase.activity.MainActivity;
 import cn.cb.andbase.activity.RecyclerActivity;
 import cn.cb.andbase.activity.RecyclerViewMaxItemActivity;
 import cn.cb.andbase.activity.TestBrowserActivity;
+import cn.cb.andbase.activity.TextActivity;
 import cn.cb.andbase.activity.UpdateActivity;
 import cn.cb.andbase.adapter.MyMenuAdapter;
 import cn.cb.baselibrary.activity.BaseActivity;
@@ -120,6 +121,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map13.put("name", "网络请求");
         map13.put("cls", DrawerActivity.class);
 
+        Map<String, Object> map14 = new HashMap<>();
+        map14.put("name", "文本滚动");
+        map14.put("cls", TextActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
@@ -133,6 +138,7 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map10);
         maps.add(map11);
         maps.add(map12);
+        maps.add(map14);
         return maps;
     }
 

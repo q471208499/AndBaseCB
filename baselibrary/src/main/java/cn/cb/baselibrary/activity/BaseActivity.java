@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
@@ -47,6 +48,16 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         mLoadingDialog = new CBLoading(this);
+    }
+
+    /**
+     * 修改状态栏颜色
+     *
+     * @param colorId
+     */
+    protected void setStatusBarColor(int colorId) {
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(colorId));
     }
 
     protected void hideInput() {
