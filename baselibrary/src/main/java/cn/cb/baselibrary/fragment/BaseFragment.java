@@ -6,6 +6,7 @@ import android.graphics.Outline;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
@@ -20,6 +21,16 @@ public class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoadingDialog = new CBLoading(getContext());
+    }
+
+    /**
+     * 修改状态栏颜色
+     *
+     * @param colorId
+     */
+    protected void setStatusBarColor(int colorId) {
+        Window window = getActivity().getWindow();
+        window.setStatusBarColor(getResources().getColor(colorId));
     }
 
     @Override
