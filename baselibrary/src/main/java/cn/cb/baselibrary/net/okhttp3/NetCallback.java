@@ -11,16 +11,14 @@ public abstract class NetCallback implements ResponseCallback {
 
     @Override
     public void onFailure(OkHttpException failure) {
-        switch (failure.geteCode()) {
-            case ABConstant.HTTP_NETWORK_ERROR:
-                MyToast.show(R.string.net_err);
-                return;
-            case ABConstant.HTTP_TIMEOUT_ERROR:
-                MyToast.show(R.string.net_timeout);
-                return;
-            case ABConstant.HTTP_OTHER_ERROR:
-                MyToast.show(R.string.net_fail);
-                return;
+        if (failure.geteCode() == ABConstant.HTTP_NETWORK_ERROR) {
+            MyToast.show(R.string.net_err);
+        } else if (failure.geteCode() == ABConstant.HTTP_TIMEOUT_ERROR) {
+            MyToast.show(R.string.net_timeout);
+        } else if (failure.geteCode() == ABConstant.HTTP_OTHER_ERROR) {
+            MyToast.show(R.string.net_fail);
+        } else {
+            MyToast.show(R.string.server_error);
         }
         Log.e(TAG, "onFailure: " + failure.geteMsg() + "\n" + failure.getMessage(), failure);
         onSuccess(failure);
