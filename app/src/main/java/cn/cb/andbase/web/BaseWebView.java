@@ -2,14 +2,14 @@ package cn.cb.andbase.web;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
-import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.cb.baselibrary.utils.LogHelper;
 
 public class BaseWebView extends WebView {
     private final String TAG = getClass().getSimpleName();
@@ -79,7 +79,7 @@ public class BaseWebView extends WebView {
             throw new ArrayIndexOutOfBoundsException("mUrlList.isEmpty()");
         }
         if (isLoading) {
-            Log.i(TAG, "load: isLoading.... true");
+            LogHelper.i(TAG, "load: isLoading.... true");
         } else {
             mPosition = 0;
             isLoading = true;
@@ -92,7 +92,7 @@ public class BaseWebView extends WebView {
             mPosition = 0;
             isLoading = false;
             mUrlList.clear();
-            Log.i(TAG, "load: isLoading.... finish");
+            LogHelper.i(TAG, "load: isLoading.... finish");
         } else {
             loadUrl(mUrlList.get(mPosition));
         }

@@ -1,12 +1,12 @@
 package cn.cb.andbase.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import cn.cb.andbase.R;
 import cn.cb.baselibrary.activity.BaseActivity;
 import cn.cb.baselibrary.net.okhttp3.NetCallback;
 import cn.cb.baselibrary.net.okhttp3.RequestMode;
+import cn.cb.baselibrary.utils.LogHelper;
 
 public class NetActivity extends BaseActivity {
 
@@ -23,7 +23,7 @@ public class NetActivity extends BaseActivity {
     private NetCallback netCallback = new NetCallback() {
         @Override
         public void onSuccess(Object responseObj) {
-            Log.i(TAG, "onSuccess: " + responseObj);
+            LogHelper.i(TAG, "onSuccess: " + responseObj);
         }
     };
 }

@@ -1,119 +1,96 @@
 package cn.cb.baselibrary.db;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.cb.baselibrary.utils.LogHelper;
+
 public class DemoDbManager {
-    private final String TAG = getClass().getSimpleName();
-    private DemoSqlHelper demoSqlHelper;
+    private static DemoDbManager instance;
+    private static DemoOpenHelper demoOpenHelper;
+    private static DemoSql demoSql;
 
-    public DemoDbManager(DemoSqlHelper helper) {
-        demoSqlHelper = helper;
+    private DemoDbManager() {
     }
 
-    /*public void addBooks(List<BookResultBean> list) {
-        SQLiteDatabase database = sqlHelper.getWritableDatabase();
-        try {
-            database.beginTransaction();
-            String createTime = ABTimeUtils.getCurrentTimeInString(DEFAULT_DATE_FORMAT);
-            for (BookResultBean bean : list) {
-                String sql = "INSERT INTO BOOK(NAME, METERADDRESS, CREATE_TIME, ADDRESS) " +
-                        "VALUES('" + bean.getBookName() + "', '" + bean.getMeterAddress() + "','"
-                        + createTime + "','" + bean.getAddress() + "')";
-                Log.i(TAG, "addBooks: " + sql);
-                database.execSQL(sql);
+    public static void createInstance(Context context, String name, int version) {
+        instance = new DemoDbManager();
+        demoOpenHelper = new DemoOpenHelper(context, name, null, version);
+        demoSql = new DemoSql(demoOpenHelper);
+    }
+
+    public static DemoDbManager getInstance() {
+        return instance;
+    }
+
+    public DemoSql getDemoSql() {
+        return demoSql;
+    }
+
+
+    public static class DemoOpenHelper extends SQLiteOpenHelper {
+        private final String TAG = getClass().getSimpleName();
+
+        public DemoOpenHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+            super(context, name, factory, version);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            String sqlScribeRecord = "CREATE TABLE \"SCRIBE_RECORD\" (\n" +//抄表记录
+                    "  \"ID\" INTEGER NOT NULL DEFAULT 0 PRIMARY KEY AUTOINCREMENT,\n" +//主键
+                    "  \"METERADDRESS\" TEXT NOT NULL,\n" +//水表编号
+                    "  \"COLLECTOR_NUMBER\" TEXT,\n" +//手持机编号
+                    "  \"CUMULATIVE_USAGE\" INTEGER DEFAULT 0,\n" +//累计流量
+                    "  \"ON_OFF_VALVE\" INTEGER DEFAULT 0,\n" +//开关阀
+                    "  \"ANGLE_ALERT\" INTEGER DEFAULT 0,\n" +//角度报警
+                    "  \"HIGH_TEMP_ALERT\" INTEGER DEFAULT 0,\n" +//高温报警
+                    "  \"MAGNETIC_ATTACK_ALERT\" INTEGER DEFAULT 0,\n" +//磁攻击
+                    "  \"OVERCURRENT_ALERT\" INTEGER DEFAULT 0,\n" +//过流报警
+                    "  \"LOW_VOLTAGE_ALERT\" INTEGER DEFAULT 0,\n" +//电压低
+                    "  \"ABNORMAL_VALVE_ALERT\" INTEGER DEFAULT 0,\n" +//阀门异常
+                    "  \"STORAGE_ALERT\" INTEGER DEFAULT 0,\n" +//存储
+                    "  \"SENSOR_ALERT\" INTEGER DEFAULT 0,\n" +//传感器
+                    "  \"BATTERY_VOLTAGE\" INTEGER DEFAULT 0,\n" +//电池电压
+                    "  \"TEMP\" INTEGER DEFAULT 0,\n" +//温度
+                    "  \"ANGLE\" INTEGER DEFAULT 0,\n" +//角度
+                    "  \"STATUS\" INTEGER DEFAULT 0,\n" +//状态0未上传；状态1已上传
+                    //"  \"DAILY_SETTLEMENT\" TEXT,\n" +//日冻结时间
+                    "  \"CREATE_TIME\" TEXT\n" +//创建时间
+                    ")";
+            String sqlBook = "CREATE TABLE \"BOOK\" (\n" +
+                    "  \"ID\" INTEGER NOT NULL DEFAULT 0 PRIMARY KEY AUTOINCREMENT,\n" +
+                    "  \"NAME\" TEXT,\n" +
+                    "  \"METERADDRESS\" TEXT NOT NULL,\n" +
+                    "  \"ADDRESS\" TEXT,\n" +
+                    "  \"CREATE_TIME\" TEXT\n" +//创建时间
+                    ")";
+            LogHelper.i(TAG, "onCreate: " + sqlScribeRecord);
+            db.execSQL(sqlScribeRecord);
+            LogHelper.i(TAG, "onCreate: " + sqlBook);
+            db.execSQL(sqlBook);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            List<String> list = new ArrayList<>();
+            switch (oldVersion) {
+                case 1:
+                    list.add("ALTER TABLE SCRIBE_RECORD ADD TEMP INTEGER DEFAULT 0");
+                    list.add("ALTER TABLE SCRIBE_RECORD ADD ANGLE INTEGER DEFAULT 0");
             }
-            database.setTransactionSuccessful();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        database.endTransaction();
-        database.close();
-    }
-
-    public boolean dropTable() {
-        try (SQLiteDatabase database = sqlHelper.getWritableDatabase()) {
-            String sql = "DROP TABLE BOOK";
-            Log.i(TAG, "dropTable: " + sql);
-            database.execSQL(sql);
-            database.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean cleanBooks() {
-        try (SQLiteDatabase database = sqlHelper.getWritableDatabase()) {
-            String sql = "DELETE FROM BOOK";
-            Log.i(TAG, "cleanBooks: " + sql);
-            database.execSQL(sql);
-            database.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public List<BookListItemBean> getBooksBySelect() {
-        List<BookListItemBean> list = getAllBooks();
-        Set<String> selection = SPUtils.getInstance().getStringSet(SP_CHECKED_COMMUNITY_ITEMS);
-        if (selection == null || selection.isEmpty()) return list;
-        List<BookListItemBean> result = new ArrayList<>();
-        for (String s : selection) {
-            for (int i = 0; i < list.size(); i++) {
-                if (s.equals(list.get(i).getBookName())) result.add(list.get(i));
+            for (String s : list) {
+                LogHelper.i(TAG, "onUpgrade: " + s);
+                db.execSQL(s);
             }
         }
-        return result;
     }
-
-    public List<BookListItemBean> getAllBooks() {
-        List<BookListItemBean> list = new ArrayList<>();
-        try (SQLiteDatabase database = sqlHelper.getWritableDatabase()) {
-            String sql = "SELECT B.NAME, B.CREATE_TIME, COUNT(B.NAME) AS N, SR.STATUS\n" +
-                    "FROM BOOK B\n" +
-                    "LEFT JOIN SCRIBE_RECORD SR ON SR.METERADDRESS = B.METERADDRESS\n" +
-                    "GROUP BY B.NAME, B.CREATE_TIME , SR.STATUS\n" +
-                    "ORDER BY B.ID";
-            Log.i(TAG, "getBooks: " + sql);
-            Cursor cursor = database.rawQuery(sql, null);
-            String tempName = "";
-            while (cursor.moveToNext()) {
-                String name = cursor.getString(cursor.getColumnIndex("NAME"));
-                String createTime = cursor.getString(cursor.getColumnIndex("CREATE_TIME"));
-                int n = cursor.getInt(cursor.getColumnIndex("N"));
-                int status = cursor.getInt(cursor.getColumnIndex("STATUS"));
-                if (tempName.isEmpty()) {
-                    tempName = name;
-                    BookListItemBean bean = new BookListItemBean();
-                    bean.setBookCreateTime(createTime);
-                    bean.setBookName(name);
-                    bean.setBookId(null);
-                    bean.setBookTotal(n);
-                    list.add(bean);
-                    if (status == 1) bean.setBookComplete(n);
-                } else {
-                    if (tempName.equals(name)) {
-                        BookListItemBean bean = list.get(list.size() - 1);
-                        if (status == 1) bean.setBookComplete(n);
-                        int total = bean.getBookTotal() + n;
-                        bean.setBookTotal(total);
-                        list.set(list.size() - 1, bean);
-                    } else {
-                        tempName = name;
-                        BookListItemBean bean = new BookListItemBean();
-                        bean.setBookCreateTime(createTime);
-                        bean.setBookName(name);
-                        bean.setBookId(null);
-                        bean.setBookTotal(n);
-                        list.add(bean);
-                        if (status == 1) bean.setBookComplete(n);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }*/
 }
+
+

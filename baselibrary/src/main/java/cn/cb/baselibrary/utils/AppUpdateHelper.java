@@ -1,7 +1,5 @@
 package cn.cb.baselibrary.utils;
 
-import android.util.Log;
-
 import com.cretin.www.cretinautoupdatelibrary.interfaces.AppDownloadListener;
 import com.cretin.www.cretinautoupdatelibrary.utils.AppUpdateUtils;
 import com.cretin.www.cretinautoupdatelibrary.utils.AppUtils;
@@ -30,33 +28,33 @@ public class AppUpdateHelper {
         AppUpdateUtils.getInstance().addAppDownloadListener(new AppDownloadListener() {
             @Override
             public void downloading(int progress) {
-                Log.i(TAG, "downloading: " + progress);
+                LogHelper.i(TAG, "downloading: " + progress);
             }
 
             @Override
             public void downloadFail(String msg) {
-                Log.i(TAG, "downloadFail: " + msg);
+                LogHelper.i(TAG, "downloadFail: " + msg);
                 MyToast.show(msg);
             }
 
             @Override
             public void downloadComplete(String path) {
-                Log.i(TAG, "downloadComplete: " + path);
+                LogHelper.i(TAG, "downloadComplete: " + path);
             }
 
             @Override
             public void downloadStart() {
-                Log.i(TAG, "downloadStart: ");
+                LogHelper.i(TAG, "downloadStart: ");
             }
 
             @Override
             public void reDownload() {
-                Log.i(TAG, "reDownload: ");
+                LogHelper.i(TAG, "reDownload: ");
             }
 
             @Override
             public void pause() {
-                Log.i(TAG, "pause: ");
+                LogHelper.i(TAG, "pause: ");
             }
         }).checkUpdate(jsonStr);
     }
@@ -64,7 +62,7 @@ public class AppUpdateHelper {
     private ResponseCallback callback = new ResponseCallback() {
         @Override
         public void onSuccess(Object responseObj) {
-            Log.i(TAG, "onSuccess: " + responseObj.toString());
+            LogHelper.i(TAG, "onSuccess: " + responseObj.toString());
             update(responseObj.toString());
         }
 

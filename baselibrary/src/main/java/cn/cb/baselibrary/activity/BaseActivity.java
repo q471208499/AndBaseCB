@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.text.TextPaint;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +30,7 @@ import com.yhao.floatwindow.Screen;
 import java.lang.reflect.Method;
 
 import cn.cb.baselibrary.R;
+import cn.cb.baselibrary.utils.LogHelper;
 import cn.cb.baselibrary.widget.CBLoading;
 import es.dmoral.toasty.MyToast;
 
@@ -104,12 +104,12 @@ public class BaseActivity extends AppCompatActivity {
         PermissionListener permissionListener = new PermissionListener() {
             @Override
             public void onSuccess() {
-                Log.i(TAG, "onSuccess: ");
+                LogHelper.i(TAG, "onSuccess: ");
             }
 
             @Override
             public void onFail() {
-                Log.i(TAG, "onFail: ");
+                LogHelper.i(TAG, "onFail: ");
             }
         };
         if (FloatWindow.get() == null || !FloatWindow.get().isShowing())

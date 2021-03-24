@@ -30,6 +30,7 @@ public class BaseApplication extends CrashApplication {
     public static File DATABASE_PATH;
     public static String DB_NAME = "app-db";
     public static int DB_VERSION = 1;
+    public static boolean DEBUG;
 
     private static Context mContext;
 
