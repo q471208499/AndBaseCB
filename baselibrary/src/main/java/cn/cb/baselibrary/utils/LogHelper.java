@@ -32,13 +32,13 @@ public class LogHelper {
 
     public static int i(String tag, String msg) {
         if (BaseApplication.DEBUG)
-            return LogHelper.i(tag, msg);
+            return Log.i(tag, msg);
         return 0;
     }
 
     public static int i(String tag, String msg, Throwable tr) {
         if (BaseApplication.DEBUG)
-            return LogHelper.i(tag, msg, tr);
+            return Log.i(tag, msg, tr);
         return 0;
     }
 

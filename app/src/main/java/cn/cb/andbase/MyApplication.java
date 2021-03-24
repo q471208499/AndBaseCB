@@ -8,5 +8,6 @@ public class MyApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         MyToast.init(this, true, true);
+        DEBUG = BuildConfig.DEBUG;
     }
 }
