@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.cb.baselibrary.update.OkHttp3Connection;
 import cn.cb.baselibrary.update.UpdateModel;
+import cn.cb.baselibrary.utils.SPUtils;
 import es.dmoral.toasty.MyToast;
 import okhttp3.OkHttpClient;
 
@@ -31,6 +32,7 @@ public class BaseApplication extends CrashApplication {
     public static String DB_NAME = "app.db";
     public static int DB_VERSION = 1;
     public static boolean DEBUG;
+    public static boolean FIRST;
 
     private static Context mContext;
 
@@ -51,6 +53,12 @@ public class BaseApplication extends CrashApplication {
         mContext = getApplicationContext();
         initAutoUpdate();
         //DemoSqlManager.createInstance(this, DB_NAME, DB_VERSION);
+        first();
+    }
+
+    private void first() {
+        FIRST = SPUtils.getInstance().getBoolean("FIRST", true);
+        SPUtils.getInstance().put("FIRST", false);
     }
 
     /**
