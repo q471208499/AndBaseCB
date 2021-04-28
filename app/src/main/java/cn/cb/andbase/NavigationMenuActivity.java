@@ -17,6 +17,7 @@ import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
 import cn.cb.andbase.activity.DrawerActivity;
 import cn.cb.andbase.activity.FloatWindowActivity;
+import cn.cb.andbase.activity.RefreshMoreActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
@@ -125,6 +126,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map14.put("name", "文本滚动");
         map14.put("cls", TextActivity.class);
 
+        Map<String, Object> map15 = new HashMap<>();
+        map15.put("name", "刷新");
+        map15.put("cls", RefreshMoreActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
@@ -139,6 +144,7 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map11);
         maps.add(map12);
         maps.add(map14);
+        maps.add(map15);
         return maps;
     }
 

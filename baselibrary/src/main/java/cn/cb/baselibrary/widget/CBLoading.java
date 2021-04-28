@@ -22,8 +22,9 @@ public class CBLoading extends Handler {
     private int countDownTimers = 0;
     private final String point = ".";
 
-    private Context mContext;
-    private ProgressDialog mLoadingDialog;
+    private final Context mContext;
+    private final ProgressDialog mLoadingDialog;
+
 
     public CBLoading(Context context) {
         mContext = context;

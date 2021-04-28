@@ -19,7 +19,7 @@ public class FloatWindowActivity extends BaseActivity {
         TextView textView = new TextView(this);
         textView.setText("ddddddd");
         textView.setTextColor(Color.RED);
-        textView.setBackground(getDrawable(R.color.colorBlue));
+        textView.setBackground(getDrawable(R.color.white_3));
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         textView.setPadding(18, 8, 18, 8);
 //        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(100, 30);

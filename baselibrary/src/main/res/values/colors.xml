@@ -6,20 +6,37 @@
     <color name="colorPrimaryDark">#7ebfbf</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="colorGreen">#07c160</color>
-    <color name="colorGreen2">#06ae56</color>
+    <color name="red_0">#FFF00000</color>
+    <color name="red_1">#FFD70000</color>
+    <color name="red_2">#FFBE0000</color>
+    <color name="red_3">#FFA50000</color>
 
-    <color name="colorBlack">#dbdbdb</color>
-    <color name="colorBlack2">#F2F2F2</color>
-    <color name="colorWhite">#fafafb</color>
-    <color name="colorWhite2">#F7F7F7</color>
-    <color name="colorWhite3">#EEEEEE</color>
-    <color name="colorWhite4">#E6E6E6</color>
-    <color name="colorWhite5">#DDDDDD</color>
+    <color name="yellow_0">#FFF8EA32</color>
+    <color name="yellow_1">#FFDFD132</color>
+    <color name="yellow_2">#FFC6B832</color>
+    <color name="yellow_3">#FFAD9F29</color>
 
-    <color name="colorBlue">#A5B5D3</color>
-    <color name="colorBlue2">#8A9CC4</color>
-    <color name="colorBlue3">#ff4285f4</color>
+    <color name="green_0">#FF00FE4A</color>
+    <color name="green_1">#FF00E54A</color>
+    <color name="green_2">#FF00CC47</color>
+    <color name="green_3">#FF00B33F</color>
 
-    <color name="colorRed">#EC7973</color>
+    <color name="blue_light_0">#FF0099DC</color>
+    <color name="blue_light_1">#FF008AC3</color>
+    <color name="blue_light_2">#FF0072AA</color>
+    <color name="blue_light_3">#FF005A91</color>
+
+    <color name="blue_dark_0">#FF032379</color>
+    <color name="blue_dark_1">#FF032260</color>
+    <color name="blue_dark_2">#FF03203D</color>
+    <color name="blue_dark_3">#FF031423</color>
+
+    <color name="white_1">#FFE6E6E6</color>
+    <color name="white_2">#FFDBDBDB</color>
+    <color name="white_3">#FFCDCDCD</color>
+    <color name="white_4">#FFBFBFBF</color>
+    <color name="white_5">#FF8A8A8A</color>
+    <color name="white_6">#FF707070</color>
+    <color name="white_7">#FF515151</color>
+    <color name="white_8">#FF2C2C2C</color>
 </resources>
