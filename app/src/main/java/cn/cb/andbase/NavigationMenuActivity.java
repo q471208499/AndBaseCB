@@ -23,6 +23,7 @@ import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
 import cn.cb.andbase.activity.RecyclerActivity;
 import cn.cb.andbase.activity.RecyclerViewMaxItemActivity;
+import cn.cb.andbase.activity.TabbedActivity;
 import cn.cb.andbase.activity.TestBrowserActivity;
 import cn.cb.andbase.activity.TextActivity;
 import cn.cb.andbase.activity.UpdateActivity;
@@ -130,6 +131,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map15.put("name", "刷新");
         map15.put("cls", RefreshMoreActivity.class);
 
+        Map<String, Object> map16 = new HashMap<>();
+        map16.put("name", "tabbed");
+        map16.put("cls", TabbedActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
@@ -145,6 +150,7 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map12);
         maps.add(map14);
         maps.add(map15);
+        maps.add(map16);
         return maps;
     }
 

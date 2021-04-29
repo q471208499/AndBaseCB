@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">And Base CB</string>
     <string name="local_text">This is an example of switching between Chinese and English.</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
