@@ -17,13 +17,15 @@ import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
 import cn.cb.andbase.activity.DrawerActivity;
 import cn.cb.andbase.activity.FloatWindowActivity;
-import cn.cb.andbase.activity.RefreshMoreActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
+import cn.cb.andbase.activity.PathActivity;
 import cn.cb.andbase.activity.RecyclerActivity;
 import cn.cb.andbase.activity.RecyclerViewMaxItemActivity;
+import cn.cb.andbase.activity.RefreshMoreActivity;
 import cn.cb.andbase.activity.TabbedActivity;
+import cn.cb.andbase.activity.TakePicActivity;
 import cn.cb.andbase.activity.TestBrowserActivity;
 import cn.cb.andbase.activity.TextActivity;
 import cn.cb.andbase.activity.UpdateActivity;
@@ -50,18 +52,15 @@ public class NavigationMenuActivity extends BaseActivity {
         ViewUtils.setOutline(recyclerView);
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v.getId() == R.id.item_btn) {
-                Map<String, Object> map = (Map<String, Object>) v.getTag();
-                Class cls = (Class) map.get("cls");
-                String title = (String) map.get("name");
-                Intent intent = new Intent();
-                intent.setClass(NavigationMenuActivity.this, cls);
-                intent.putExtra(Intent.EXTRA_TITLE, title);
-                startActivity(intent);
-            }
+    private final View.OnClickListener clickListener = v -> {
+        if (v.getId() == R.id.item_btn) {
+            Map<String, Object> map = (Map<String, Object>) v.getTag();
+            Class cls = (Class) map.get("cls");
+            String title = (String) map.get("name");
+            Intent intent = new Intent();
+            intent.setClass(NavigationMenuActivity.this, cls);
+            intent.putExtra(Intent.EXTRA_TITLE, title);
+            startActivity(intent);
         }
     };
 
@@ -104,7 +103,7 @@ public class NavigationMenuActivity extends BaseActivity {
         map8.put("cls", DialogActivity.class);
 
         Map<String, Object> map9 = new HashMap<>();
-        map9.put("name", "标题栏按钮");
+        map9.put("name", "工具栏按钮");
         map9.put("cls", BarBtnActivity.class);
 
         Map<String, Object> map10 = new HashMap<>();
@@ -135,6 +134,14 @@ public class NavigationMenuActivity extends BaseActivity {
         map16.put("name", "tabbed");
         map16.put("cls", TabbedActivity.class);
 
+        Map<String, Object> map17 = new HashMap<>();
+        map17.put("name", "拍照");
+        map17.put("cls", TakePicActivity.class);
+
+        Map<String, Object> map18 = new HashMap<>();
+        map18.put("name", "路径");
+        map18.put("cls", PathActivity.class);
+
         maps.add(map0);
         maps.add(map1);
         maps.add(map2);
@@ -148,9 +155,12 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map10);
         maps.add(map11);
         maps.add(map12);
+        maps.add(map13);
         maps.add(map14);
         maps.add(map15);
         maps.add(map16);
+        maps.add(map17);
+        maps.add(map18);
         return maps;
     }
 

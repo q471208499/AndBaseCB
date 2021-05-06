@@ -24,7 +24,7 @@ android {
         }
     }
 
-    productFlavors {
+    /*productFlavors {
         demo1 {
             applicationId "cn.cb.andbase.demo1"
             //AndroidManifest.xml 占位符，占位方式：${MTA_CHANNEL_VALUE}
@@ -49,7 +49,7 @@ android {
             //包名.BuildConfig.java 文件变量
             buildConfigField("String", "HOST", '"http://121.15.209.245:8700/meterCheck"')
         }
-    }
+    }*/
 
 }
 
@@ -62,7 +62,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':baselibrary')
@@ -74,6 +74,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.2'
 
     implementation 'com.github.hss01248:Toasty:2.0.6'
-    demo1Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo1 依赖
-    demo2Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo2 依赖
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+    //demo1Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo1 依赖
+    //demo2Implementation 'com.github.hss01248:Toasty:2.0.6'//渠道demo2 依赖
 }

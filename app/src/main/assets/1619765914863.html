@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="./index.css">
+  <link rel="stylesheet" href="./FormMaking.css">
+</head>
+<body>
+  <div id="app">
+    <fm-generate-form
+      :data="jsonData" 
+      :remote="remoteFuncs" 
+      :value="editData" 
+      :remote-option="dynamicData"
+      ref="generateForm"
+    >
+    </fm-generate-form>
+    <el-button type="primary" @click="handleSubmit">Submit</el-button>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="./index.js"></script>
+  <script src="./FormMaking.umd.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        jsonData: {"list":[{"type":"grid","icon":"icon-RectangleCopy","columns":[{"type":"col","options":{"span":24,"offset":0,"push":0,"pull":0,"xs":24,"sm":24,"md":24,"lg":24,"xl":24,"customClass":""},"list":[{"type":"input","icon":"icon-input","options":{"width":"100%","defaultValue":"","required":false,"requiredMessage":"","dataType":"","dataTypeCheck":false,"dataTypeMessage":"","pattern":"","patternCheck":false,"patternMessage":"","placeholder":"","customClass":"","disabled":false,"labelWidth":100,"isLabelWidth":false,"hidden":false,"dataBind":true,"showPassword":false,"remoteFunc":"func_1619765906388","remoteOption":"option_1619765906388"},"name":"单行文本","novalid":{},"key":"1619765906388","model":"input_1619765906388","rules":[]}],"key":"rzahacfs"}],"options":{"gutter":0,"justify":"start","align":"top","customClass":"","hidden":false,"flex":true,"responsive":true,"remoteFunc":"func_1619765902048","remoteOption":"option_1619765902048"},"name":"栅格布局","key":"1619765902048","model":"grid_1619765902048","rules":[]},{"type":"grid","icon":"icon-RectangleCopy","columns":[{"type":"col","options":{"span":24,"offset":0,"push":0,"pull":0,"xs":24,"sm":24,"md":24,"lg":24,"xl":24,"customClass":""},"list":[{"type":"input","icon":"icon-input","options":{"width":"100%","defaultValue":"","required":false,"requiredMessage":"","dataType":"","dataTypeCheck":false,"dataTypeMessage":"","pattern":"","patternCheck":false,"patternMessage":"","placeholder":"","customClass":"","disabled":false,"labelWidth":100,"isLabelWidth":false,"hidden":false,"dataBind":true,"showPassword":false,"remoteFunc":"func_1619765907591","remoteOption":"option_1619765907591"},"name":"单行文本","novalid":{},"key":"1619765907591","model":"input_1619765907591","rules":[]}],"key":"mstxzzwa"}],"options":{"gutter":0,"justify":"start","align":"top","customClass":"","hidden":false,"flex":true,"responsive":true,"remoteFunc":"func_1619765903394","remoteOption":"option_1619765903394"},"name":"栅格布局","key":"1619765903394","model":"grid_1619765903394","rules":[]},{"type":"grid","icon":"icon-RectangleCopy","columns":[{"type":"col","options":{"span":24,"offset":0,"push":0,"pull":0,"xs":24,"sm":24,"md":24,"lg":24,"xl":24,"customClass":""},"list":[{"type":"input","icon":"icon-input","options":{"width":"100%","defaultValue":"","required":false,"requiredMessage":"","dataType":"","dataTypeCheck":false,"dataTypeMessage":"","pattern":"","patternCheck":false,"patternMessage":"","placeholder":"","customClass":"","disabled":false,"labelWidth":100,"isLabelWidth":false,"hidden":false,"dataBind":true,"showPassword":false,"remoteFunc":"func_1619765908940","remoteOption":"option_1619765908940"},"name":"单行文本","novalid":{},"key":"1619765908940","model":"input_1619765908940","rules":[]}],"key":"bn2e2kqv"}],"options":{"gutter":0,"justify":"start","align":"top","customClass":"","hidden":false,"flex":true,"responsive":true,"remoteFunc":"func_1619765904735","remoteOption":"option_1619765904735"},"name":"栅格布局","key":"1619765904735","model":"grid_1619765904735","rules":[]}],"config":{"labelWidth":100,"labelPosition":"right","size":"small","customClass":"","ui":"element","layout":"horizontal","labelCol":3,"width":"100%","hideLabel":false,"hideErrorMessage":false,"dataSource":[{"key":"upload","name":"Get Upload Token","url":"http://tools-server.making.link/api/uptoken","method":"GET","auto":true,"responseFunc":"return res.uptoken;"},{"key":"getoptions","name":"Get Options","url":"http://tools-server.making.link/api/new/options","method":"GET","auto":true,"responseFunc":"return res.data;"}]}},
+        editData: {},
+        remoteFuncs: {
+          
+        },
+        dynamicData: {
+          
+        }
+      },
+      methods: {
+        handleSubmit () {
+          this.$refs.generateForm.getData().then(data => {
+            // Data verification succeeded
+            alert(JSON.stringify(data))
+          }).catch(e => {
+            // Data verification failed
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>表单设计器kcz</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./k-form-design.css">
+</head>
+
+<body>
+  <div class="app">
+    <k-form-build ref="KFB" @submit="handleSubmit" :value="jsonData"></k-form-build>
+    <button @click="getData">提交</button>
+  </div>
+  <script src="./vue.min.js"></script>
+  <script src="./k-form-design.umd.min.js"></script>
+  <script>
+    let jsonData = {"list":[{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764049680","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764033624"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764050937","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764045076"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764054042","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764045076"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764056882","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764045076"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764058981","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764045077"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764061000","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764043572"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764063153","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764043572"},{"type":"grid","label":"栅格布局","icon":"icon-zhage","columns":[{"span":24,"list":[{"type":"input","label":"输入框","icon":"icon-write","options":{"type":"text","width":"100%","defaultValue":"","placeholder":"请输入","clearable":false,"maxLength":null,"labelWidth":4,"wrapperCol":20,"customStyle":"","customClass":"","labelStyle":"","labelClass":"","eventNames":[],"hidden":false,"disabled":false,"readonly":false,"changeEvent":"(e) => { console.log(e) }"},"model":"input_1619764049680","key":"input_1619764065309","rules":[{"required":false,"message":"必填项"}]}]}],"options":{"gutter":0},"key":"grid_1619764042738"}],"config":{"layout":"horizontal","labelCol":{"xs":4,"sm":4,"md":4,"lg":4,"xl":4,"xxl":4},"wrapperCol":{"xs":18,"sm":18,"md":18,"lg":18,"xl":18,"xxl":18},"hideRequiredMark":false,"customStyle":"","customClass":"","globalCss":"","beforeSubmit":"","labelAlign":"left"}}
+    let vm = new Vue({
+      el: '.app',
+      data: {
+        jsonData
+      },
+      methods: {
+        handleSubmit(p) {
+          // 通过表单提交按钮触发，获取promise对象
+          p().then(res => {
+            // 获取数据成功
+            alert(JSON.stringify(res))
+          })
+            .catch(err => {
+              console.log(err, '校验失败')
+            })
+        },
+        getData() {
+          // 通过函数获取数据
+          this.$refs.KFB.getData().then(res => {
+            // 获取数据成功
+            alert(JSON.stringify(res))
+          })
+            .catch(err => {
+              console.log(err, '校验失败')
+            })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

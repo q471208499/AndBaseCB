@@ -39,12 +39,12 @@ public class ABDateUtils {
     /**
      * 精确到毫秒的完整时间    如：yyyy-MM-dd HH:mm:ss.S
      */
-    public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.S";
+    public static String FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.SSS";
 
     /**
      * 精确到毫秒的完整时间    如：yyyy-MM-dd HH:mm:ss.S
      */
-    public static String FORMAT_FULL_SN = "yyyyMMddHHmmssS";
+    public static String FORMAT_FULL_SN = "yyyyMMddHHmmssSSS";
 
     /**
      * 中文简写  如：2010年12月01日
