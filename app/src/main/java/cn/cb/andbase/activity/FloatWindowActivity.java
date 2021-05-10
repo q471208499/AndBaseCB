@@ -24,6 +24,6 @@ public class FloatWindowActivity extends BaseActivity {
         textView.setPadding(18, 8, 18, 8);
 //        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(100, 30);
         textView.setLayoutParams(layoutParams);
-        setFloatWindowViewDefault(textView);
+        //setFloatWindowViewDefault(textView);
     }
 }

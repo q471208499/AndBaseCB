@@ -36,6 +36,8 @@ class TakePicActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_pic)
+        initBarView()
+        setBarTitleTextCentre()
 
         findViewById<Button>(R.id.take_pic_btn).setOnClickListener(click())
         imageView = findViewById(R.id.take_pic_img)

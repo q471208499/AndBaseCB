@@ -16,7 +16,6 @@ import cn.cb.andbase.activity.BarBtnActivity;
 import cn.cb.andbase.activity.CrashActivity;
 import cn.cb.andbase.activity.DialogActivity;
 import cn.cb.andbase.activity.DrawerActivity;
-import cn.cb.andbase.activity.FloatWindowActivity;
 import cn.cb.andbase.activity.LoadingActivity;
 import cn.cb.andbase.activity.LocalActivity;
 import cn.cb.andbase.activity.MainActivity;
@@ -110,9 +109,10 @@ public class NavigationMenuActivity extends BaseActivity {
         map10.put("name", "recycler max item");
         map10.put("cls", RecyclerViewMaxItemActivity.class);
 
-        Map<String, Object> map11 = new HashMap<>();
+        /*Map<String, Object> map11 = new HashMap<>();
         map11.put("name", "app全局悬浮");
         map11.put("cls", FloatWindowActivity.class);
+        maps.add(map11);*/
 
         Map<String, Object> map12 = new HashMap<>();
         map12.put("name", "抽屉");
@@ -153,7 +153,6 @@ public class NavigationMenuActivity extends BaseActivity {
         maps.add(map8);
         maps.add(map9);
         maps.add(map10);
-        maps.add(map11);
         maps.add(map12);
         maps.add(map13);
         maps.add(map14);

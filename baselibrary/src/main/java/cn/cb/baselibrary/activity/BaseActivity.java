@@ -4,35 +4,29 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.text.TextPaint;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.yhao.floatwindow.FloatWindow;
-import com.yhao.floatwindow.PermissionListener;
-import com.yhao.floatwindow.Screen;
-
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import cn.cb.baselibrary.R;
 import cn.cb.baselibrary.utils.LogHelper;
 import cn.cb.baselibrary.widget.CBLoading;
-import es.dmoral.toasty.MyToast;
 
 public class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
@@ -79,7 +73,7 @@ public class BaseActivity extends AppCompatActivity {
         String title = getIntent().getStringExtra(Intent.EXTRA_TITLE);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             toolbar.setBackgroundResource(R.color.colorPrimary);
         }
         if (!TextUtils.isEmpty(title)) {
@@ -99,59 +93,34 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 设置默认全服浮动控件：不可拖动，不可点击
-     */
-    protected void setFloatWindowViewDefault(View view) {
-        PermissionListener permissionListener = new PermissionListener() {
-            @Override
-            public void onSuccess() {
-                LogHelper.i(TAG, "onSuccess: ");
-            }
-
-            @Override
-            public void onFail() {
-                LogHelper.i(TAG, "onFail: ");
-            }
-        };
-        if (FloatWindow.get() == null || !FloatWindow.get().isShowing())
-            FloatWindow
-                    .with(getApplicationContext())
-                    .setView(view)
-                    .setWidth(view.getLayoutParams().width) //设置悬浮控件宽高
-                    .setHeight(view.getLayoutParams().height)
-                    .setX(Screen.width)
-                    .setY(Screen.height, 0.3f)
-                    //.setMoveType(MoveType.slide,100,-100)
-                    //.setMoveStyle(500, new BounceInterpolator())
-                    //.setFilter(true, BaseActivity.class)
-                    //.setViewStateListener(mViewStateListener)
-                    .setPermissionListener(permissionListener)
-                    .setDesktopShow(true)
-                    .build();
-    }
-
-    /**
-     * 设置bar标题居中
+     * 设置bar标题居中：使用居中属性
      */
     protected void setBarTitleTextCentre() {
-        //获取到屏幕的宽度
-        Point point = new Point();
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        wm.getDefaultDisplay().getSize(point);
-        int width = point.x;
-
-        Paint paint = new TextPaint();
-        float textWidth = paint.measureText(getSupportActionBar().getTitle().toString());
-        float f = (width - textWidth) / 2 - 260;//1080分辨率下正常
-
         if (toolbar == null) {
             toolbar = findViewById(R.id.toolbar);
             if (toolbar == null) {
-                MyToast.show("no toolbar for this activity");
+                LogHelper.e(TAG, "no toolbar for this activity");
                 return;
             }
         }
-        toolbar.setTitleMarginStart((int) f);
+
+        for (int i = 0; i < toolbar.getChildCount(); i++) {
+            View view = toolbar.getChildAt(i);
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                String title = getIntent().getStringExtra(Intent.EXTRA_TITLE);
+                if (title == null) {
+                    LogHelper.e(TAG, "未使用Intent设置标题，无法居中！");
+                    return;
+                }
+                if (title.equals(textView.getText())) {
+                    textView.setGravity(Gravity.CENTER);
+                    Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.MATCH_PARENT);
+                    params.gravity = Gravity.CENTER;
+                    textView.setLayoutParams(params);
+                }
+            }
+        }
     }
 
     /**
@@ -218,12 +187,7 @@ public class BaseActivity extends AppCompatActivity {
         AlertDialog builder = new AlertDialog.Builder(BaseActivity.this)
                 .setTitle(R.string.dialog_prompt)
                 .setMessage(R.string.dialog_exit_software)
-                .setPositiveButton(R.string.dialog_exit, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
+                .setPositiveButton(R.string.dialog_exit, (dialog, which) -> finish())
                 .setNegativeButton(R.string.dialog_cancel, null)
                 .show();
         builder.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
