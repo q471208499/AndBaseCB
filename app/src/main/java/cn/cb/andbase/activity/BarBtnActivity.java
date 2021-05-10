@@ -1,8 +1,12 @@
 package cn.cb.andbase.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import cn.cb.andbase.R;
 import cn.cb.baselibrary.activity.BaseActivity;
@@ -15,6 +19,14 @@ public class BarBtnActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bar_btn);
         initBarView();
+        View view = findViewById(R.id.tip_bar);
+        ImageView imageView = findViewById(R.id.tip_img);
+        TextView textView = findViewById(R.id.tip_text);
+
+        view.setBackgroundResource(R.color.red_0);
+        imageView.setImageResource(R.mipmap.ic_warning);
+        textView.setText("33333333333");
+        textView.setTextColor(Color.WHITE);
     }
 
     @Override

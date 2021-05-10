@@ -102,7 +102,7 @@ public class NavigationMenuActivity extends BaseActivity {
         map8.put("cls", DialogActivity.class);
 
         Map<String, Object> map9 = new HashMap<>();
-        map9.put("name", "工具栏按钮");
+        map9.put("name", "工具栏");
         map9.put("cls", BarBtnActivity.class);
 
         Map<String, Object> map10 = new HashMap<>();
